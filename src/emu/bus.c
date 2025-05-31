@@ -94,6 +94,7 @@ u8 bus_cpu_read(bus* b, u16 addr, u8 read_only) {
 
 void bus_insert_cartridge(bus* b, cartridge* cart) {
     b->cart = cart;
+    b->cpu.b = b; // Not sure why but msvc needs this
     nes2C02_connect_cartridge(&b->ppu, cart);
 }
 

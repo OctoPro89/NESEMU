@@ -1,0 +1,84 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Programming\\NESEMU\\vsproj\\NESEMU\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|C:\\Programming\\NESEMU\\src\\emu\\bus.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|C:\\Programming\\NESEMU\\src\\emu\\emu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|C:\\Programming\\NESEMU\\src\\emu\\6502\\nes6502.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|C:\\Programming\\NESEMU\\src\\emu\\cartridge.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "bus.c",
+              "DocumentMoniker": "C:\\Programming\\NESEMU\\src\\emu\\bus.c",
+              "RelativeDocumentMoniker": "..\\..\\src\\emu\\bus.c",
+              "ToolTip": "C:\\Programming\\NESEMU\\src\\emu\\bus.c",
+              "RelativeToolTip": "..\\..\\src\\emu\\bus.c",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAvwFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-31T19:50:52.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "nes6502.c",
+              "DocumentMoniker": "C:\\Programming\\NESEMU\\src\\emu\\6502\\nes6502.c",
+              "RelativeDocumentMoniker": "..\\..\\src\\emu\\6502\\nes6502.c",
+              "ToolTip": "C:\\Programming\\NESEMU\\src\\emu\\6502\\nes6502.c",
+              "RelativeToolTip": "..\\..\\src\\emu\\6502\\nes6502.c",
+              "ViewState": "AgIAAP8AAAAAAAAAAAArwBQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-31T19:50:49.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "cartridge.c",
+              "DocumentMoniker": "C:\\Programming\\NESEMU\\src\\emu\\cartridge.c",
+              "RelativeDocumentMoniker": "..\\..\\src\\emu\\cartridge.c",
+              "ToolTip": "C:\\Programming\\NESEMU\\src\\emu\\cartridge.c",
+              "RelativeToolTip": "..\\..\\src\\emu\\cartridge.c",
+              "ViewState": "AgIAAKwAAAAAAAAAAAArwL8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-31T19:50:48.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "emu.c",
+              "DocumentMoniker": "C:\\Programming\\NESEMU\\src\\emu\\emu.c",
+              "RelativeDocumentMoniker": "..\\..\\src\\emu\\emu.c",
+              "ToolTip": "C:\\Programming\\NESEMU\\src\\emu\\emu.c",
+              "RelativeToolTip": "..\\..\\src\\emu\\emu.c",
+              "ViewState": "AgIAAPEBAAAAAAAAAAAUwP8BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-05-31T19:08:49.063Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
