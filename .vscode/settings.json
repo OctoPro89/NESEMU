@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "random": "c",
+        "mapper_000.h": "c",
+        "mapper_004.h": "c",
+        "mapper_base.h": "c",
+        "common.h": "c",
+        "mapper_common.h": "c",
+        "bus.h": "c",
+        "cartridge.h": "c",
+        "nes2a03.h": "c",
+        "stdlib.h": "c",
+        "nes6502.h": "c",
+        "nes2c02.h": "c",
+        "compare": "c",
+        "time.h": "c",
+        "stdio.h": "c",
+        "keysym.h": "c",
+        "window.h": "c",
+        "gl.h": "c",
+        "stdint.h": "c",
+        "typeinfo": "c"
+    }
+}

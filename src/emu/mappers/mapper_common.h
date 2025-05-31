@@ -1,0 +1,18 @@
+#pragma once
+
+typedef enum {
+    HORIZONTAL,
+    VERTICAL,
+    HARDWARE,
+    ONESCREEN_LO,
+    ONESCREEN_HI,
+} MIRROR;
+
+typedef enum {
+    MAPPER_TYPE_000,
+    MAPPER_TYPE_001,
+    MAPPER_TYPE_002,
+    MAPPER_TYPE_003,
+    MAPPER_TYPE_004,
+    MAPPER_TYPE_066,
+} MAPPER_TYPE;
