@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Programming\NESEMU\bin\NESEMU.exe</FullPath>
+      <FullPath>D:\Programming\C\NESEMU\NESEMU\bin\NESEMU.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

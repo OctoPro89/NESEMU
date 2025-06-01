@@ -1,2 +1,10 @@
-﻿  bus.c
-  NESEMU.vcxproj -> C:\Programming\NESEMU\bin\NESEMU.exe
+﻿  nes6502.c
+  bus.c
+  emu.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file '../../src/emu/emu.c')
+      D:\Programming\C\NESEMU\NESEMU\lib\glad\include\glad\glad.h(32,9):
+      see previous definition of 'APIENTRY'
+  
+  Generating Code...
+  NESEMU.vcxproj -> D:\Programming\C\NESEMU\NESEMU\bin\NESEMU.exe
