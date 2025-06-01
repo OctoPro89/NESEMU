@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NESEMU</title>
+
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            background-color: #2A282F;
+            color: white;
+        }
+
+        canvas {
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <input type="file" id="rom_input"/>
+
+    <script src="src/emu/common.js"></script>
+
+    <script src="src/emu/6502/nes6502.js"></script>
+    <script src="src/emu/cartridge.js"></script>
+    <script src="src/emu/platform.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>

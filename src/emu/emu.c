@@ -62,8 +62,8 @@ u8 emu_run(const char* cart_fp) {
             (keyboard.up << 3) |
             (keyboard.enter << 4) |
             (keyboard.shift << 5) |
-            (keyboard.x << 6) |
-            (keyboard.z << 7);
+            (keyboard.z << 6) |
+            (keyboard.x << 7);
 
         now_time = platform_get_elapsed_time_ms();
         elapsed_time = ((now_time - prev_time) / 1000.0);
