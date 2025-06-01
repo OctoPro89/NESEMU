@@ -1,0 +1,21 @@
+NOTES:
+
+The issue seems to NOT be in bus or nes2C02 clock. The issue is almost definitely NOT in the PPU implementation. Mapper, cart, and CPU suspected. Bus could also be the problem
+
+Bus I believe has been completely replaced
+nes2C02 I believe has also been completely replace
+mapper_000 completely replaced
+cartridge load replaced
+cartridge cpu read/write and ppu read/write replaced
+
+changelog:
+
+mapper_000.cpp completely replaced
+cartridge.cpp completely replaced
+nes2C02.cpp: as far as I know completely replaced
+bus.cpp: check again but I think completely replaced (may not be tho)
+olc6502.cpp: completely replaced
+
+TODO: debug main and emu.c
+
+its probably something with those two as everything else has been replaced

@@ -22,7 +22,7 @@ typedef struct bus {
     f64 audio_time_per_system_sample;
 
     u32 system_clock_counter;
-    u32 dma_stall_cycles;
+    // u32 dma_stall_cycles;
 
     u8 dma_page;
     u8 dma_addr;

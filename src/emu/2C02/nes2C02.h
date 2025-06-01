@@ -21,7 +21,7 @@ typedef struct {
     pixel* pal_screen;
 
     pixel* screen;
-    pixel* pattern_table;
+    // pixel* pattern_table;
 
     union PPUSTATUS {
         struct {

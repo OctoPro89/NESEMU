@@ -1,2 +1,11 @@
-﻿  nes6502.c
+﻿  emu.c
+  main.c
+  platform.c
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file '../../src/platform.c')
+      D:\Programming\C\NESEMU\NESEMU\lib\glad\include\glad\glad.h(32,9):
+      see previous definition of 'APIENTRY'
+  
+  Generating Code...
+  LINK : ..\..\bin\NESEMU.exe not found or not built by the last incremental link; performing full link
   NESEMU.vcxproj -> D:\Programming\C\NESEMU\NESEMU\bin\NESEMU.exe

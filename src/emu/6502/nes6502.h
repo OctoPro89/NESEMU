@@ -14,9 +14,9 @@ typedef struct {
     u8 status;
 
     u8 fetched;
-    u8 temp;
+    u16 temp;
     u16 addr_abs;
-    u16 addr_rel;
+    i32 addr_rel;
     u8 opcode;
     u8 cycles;
     u32 clock_count;

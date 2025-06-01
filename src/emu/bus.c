@@ -40,7 +40,7 @@ void bus_cpu_write(bus* b, u16 addr, u8 data) {
         b->ram[addr & 0x07FF] = data;
     } else if (addr >= 0x2000 && addr <= 0x3FFF) {
         nes2C02_cpu_write(&b->ppu, addr & 0x007, data);
-    } else if ((addr >= 0x4000 && addr <= 0x4013 || addr == 0x4015 || addr == 0x4017)) {
+    } else if ((addr >= 0x4000 && addr <= 0x4013) || addr == 0x4015 || addr == 0x4017) {
         // nes2A03_cpu_write(&b->apu, addr, data);
     } else if (addr == 0x4014) {
         b->dma_page = data;
@@ -48,7 +48,7 @@ void bus_cpu_write(bus* b, u16 addr, u8 data) {
         b->dma_transfer = true;
 
         // Stall CPU
-        b->dma_stall_cycles = (b->system_clock_counter % 2 == 1) ? 514 : 513;
+        // b->dma_stall_cycles = (b->system_clock_counter % 2 == 1) ? 514 : 513;
     } else if (addr == 0x4016) {
         b->controller_strobe = data & 0x01;
 
@@ -111,70 +111,69 @@ void bus_reset(bus* b) {
 }
 
 u8 bus_clock(bus* b) {
-    // Clock the PPU once per system clock tick (PPU runs 3x faster than CPU)
-    nes2C02_clock(&b->ppu);
+	nes2C02_clock(&b->ppu);
+	// nes2A03_clock(&b->apu);
 
-    // Handle DMA stall and CPU execution every 3rd clock
-    if (b->system_clock_counter % 3 == 0) {
-        if (b->dma_transfer) {
-            // If we're still in the DMA stall period, don't clock the CPU
-            if (b->dma_stall_cycles > 0) {
-                b->dma_stall_cycles--;
-            } else {
-                // Perform DMA data transfer (1 byte per 2 cycles: read then write)
-                if (b->dma_dummy) {
-                    // First dummy cycle on odd CPU cycle
-                    if (b->system_clock_counter % 2 == 1) {
-                        b->dma_dummy = false;
-                    }
-                } else {
-                    if ((b->system_clock_counter % 2) == 0) {
-                        // Even: read from CPU memory
-                        b->dma_data = bus_cpu_read(b, (b->dma_page << 8) | b->dma_addr, false);
-                    } else {
-                        // Odd: write to PPU OAM
-                        printf("DMA write to OAM[%02X] = %02X from CPU[%04X]\n", b->dma_addr, b->dma_data, (b->dma_page << 8) | b->dma_addr);
-                        u8* p_oam = (u8*)b->ppu.oam;
-                        p_oam[b->dma_addr] = b->dma_data;
-                        b->dma_addr++;
+	// CPU runs 3 times slower than the apu and ppu
+	if (b->system_clock_counter % 3 == 0) {
+		if (b->dma_transfer) {
+			// Wait for next clock
+			if (b->dma_dummy) {
+				// Wait a couple cycles
+				if (b->system_clock_counter % 2 == 1) {
+                    // Start DMA
+					b->dma_dummy = false;
+				}
+			}
+			else {
+				// DMA can take place!
+				if (b->system_clock_counter % 2 == 0) {
+					// On even cycles read from cpu
+					b->dma_data = bus_cpu_read(b, b->dma_page << 8 | b->dma_addr, false);
+				}
+				else {
+					// On odd cycles write to PPU OAM
+                    u8* p_oam = (u8*)&b->ppu.oam[0];
+                    p_oam[b->dma_addr] = b->dma_data;
+					// Increment addr lo byte 
+					b->dma_addr++;
+                    // If this wraps around then all 256 bytes have been written
+					if (b->dma_addr == 0x00) {
+						b->dma_transfer = false;
+						b->dma_dummy = true;
+					}
+				}
+			}
+		}
+		else {
+            // No DMA, keep clockin dem cycles
+			nes6502_clock(&b->cpu);
+		}
+	}
 
-                        // End DMA when we wrap from 0xFF to 0x00
-                        if (b->dma_addr == 0x00) {
-                            b->dma_transfer = false;
-                            b->dma_dummy = true;
-                        }
-                    }
-                }
-            }
-        } else {
-            // Normal CPU execution if no DMA
-            nes6502_clock(&b->cpu);
-        }
-    }
+	// Synchronize with audio
+    u8 sample_ready = false;
+	b->audio_time += b->audio_time_per_nes_clock;
+	if (b->audio_time >= b->audio_time_per_system_sample) {
+		b->audio_time -= b->audio_time_per_system_sample;
+		// b->audio_sample = nes2A03_get_output_sample(&b->apu);
+        sample_ready = true;
+	}
 
-    // Audio sampling (optional / stubbed here)
-    u8 audio_sample_ready = false;
-    b->audio_time += b->audio_time_per_nes_clock;
-    if (b->audio_time >= b->audio_time_per_system_sample) {
-        b->audio_time -= b->audio_time_per_system_sample;
-        // b->audio_sample = nes2A03_get_output_sample(&b->apu);
-        audio_sample_ready = true;
-    }
-
-    // Handle PPU NMI (VBlank)
-    if (b->ppu.nmi) {
+    // Vertical blank ended
+	if (b->ppu.nmi) {
         b->ppu.nmi = false;
-        nes6502_nmi(&b->cpu);
-    }
+		nes6502_nmi(&b->cpu);
+	}
 
-    // Handle Mapper IRQs if used
-    if (mapper_irq_state(cartridge_mapper(b->cart))) {
+
+	// Check if cart is requesting IRQ
+	if (mapper_irq_state(cartridge_mapper(b->cart))) {
         mapper_irq_clear(cartridge_mapper(b->cart));
-        nes6502_irq(&b->cpu);
-    }
+		nes6502_irq(&b->cpu);
+	}
 
-    // Increment system clock
-    b->system_clock_counter++;
+	b->system_clock_counter++;
 
-    return audio_sample_ready;
+	return sample_ready;
 }

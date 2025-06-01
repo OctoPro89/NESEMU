@@ -65,8 +65,8 @@ cartridge cartridge_init(const char* filepath) {
         cart.prg_memory = (u8*)malloc(prg_mem_size);
         fread(cart.prg_memory, prg_mem_size, 1, f);
 
-        u32 chr_mem_size = cart.chr_banks * 8192;
         cart.chr_banks = ((header.prg_ram_size & 0x38) << 8) | header.chr_rom_chunks;
+        u32 chr_mem_size = cart.chr_banks * 8192;
         cart.chr_memory = (u8*)malloc(chr_mem_size);
         fread(cart.chr_memory, chr_mem_size, 1, f);
     }
@@ -169,14 +169,15 @@ u8 cartridge_cpu_write(cartridge* cart, u16 addr, u8 data) {
 u8 cartridge_ppu_read(cartridge* cart, u16 addr, u8* data) {
     u32 mapped_addr = 0;
     if (mapper_ppu_map_read(&cart->m, addr, &mapped_addr)) {
-        if (mapped_addr < cart->chr_banks * 8192 || !cart->chr_is_rom) {
+        if (mapped_addr < (u32)(cart->chr_banks * 8192) || !cart->chr_is_rom) {
             *data = cart->chr_memory[mapped_addr];
             return true;
         }
-        return true;
     } else {
         return false;
     }
+
+    return false;
 }
 
 u8 cartridge_ppu_write(cartridge* cart, u16 addr, u8 data) {

@@ -1,9 +1,9 @@
 #pragma once
 
 typedef enum {
+    HARDWARE,
     HORIZONTAL,
     VERTICAL,
-    HARDWARE,
     ONESCREEN_LO,
     ONESCREEN_HI,
 } MIRROR;

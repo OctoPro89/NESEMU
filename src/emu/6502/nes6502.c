@@ -581,15 +581,18 @@ u8 ADC(nes6502* nes) {
 
 u8 SBC(nes6502* nes) {
     nes6502_fetch(nes);
-    u16 value = ((u16)nes->fetched) ^ 0x00FF;
+    u16 value = (u16)nes->fetched ^ 0x00FF;
     nes->temp = (u16)nes->a + value + (u16)nes6502_get_flag(nes, FLAGS_6502_C);
-    nes6502_set_flag(nes, FLAGS_6502_C, nes->temp & 0xFF00);
+
+    nes6502_set_flag(nes, FLAGS_6502_C, nes->temp > 0xFF);
     nes6502_set_flag(nes, FLAGS_6502_Z, ((nes->temp & 0x00FF) == 0));
-    nes6502_set_flag(nes, FLAGS_6502_V, (nes->temp ^ (u16)nes->a) & (nes->temp ^ value) & 0x0080);
+    nes6502_set_flag(nes, FLAGS_6502_V, ((nes->temp ^ (u16)nes->a) & (nes->temp ^ value) & 0x0080));
     nes6502_set_flag(nes, FLAGS_6502_N, nes->temp & 0x0080);
+
     nes->a = nes->temp & 0x00FF;
     return 1;
 }
+
 
 u8 AND(nes6502* nes) {
     nes6502_fetch(nes);
@@ -601,16 +604,20 @@ u8 AND(nes6502* nes) {
 
 u8 ASL(nes6502* nes) {
     nes6502_fetch(nes);
-    nes->temp = (u16)nes->fetched << 1;
-    nes6502_set_flag(nes, FLAGS_6502_C, (nes->temp & 0xFF00) > 0);
+    nes->temp = (u16)(nes->fetched << 1);
+
+    nes6502_set_flag(nes, FLAGS_6502_C, nes->fetched & 0x80);
     nes6502_set_flag(nes, FLAGS_6502_Z, (nes->temp & 0x00FF) == 0x00);
     nes6502_set_flag(nes, FLAGS_6502_N, nes->temp & 0x80);
+
     if (nes->lookup[nes->opcode].addrmode == IMP)
         nes->a = nes->temp & 0x00FF;
     else
         nes6502_write(nes, nes->addr_abs, nes->temp & 0x00FF);
+
     return 0;
 }
+
 
 u8 BCC(nes6502* nes) {
     if (nes6502_get_flag(nes, FLAGS_6502_C) == 0) {
@@ -690,10 +697,13 @@ u8 BPL(nes6502* nes) {
 u8 BRK(nes6502* nes) {
     nes->pc++;
     nes6502_set_flag(nes, FLAGS_6502_I, 1);
-    nes6502_write(nes, 0x0100 + nes->stkp--, (nes->pc >> 8) & 0x00FF);
-    nes6502_write(nes, 0x0100 + nes->stkp--, nes->pc & 0x00FF);
+    nes6502_write(nes, 0x0100 + nes->stkp, (nes->pc >> 8) & 0x00FF);
+    nes->stkp--;
+    nes6502_write(nes, 0x0100 + nes->stkp, nes->pc & 0x00FF);
+    nes->stkp--;
     nes6502_set_flag(nes, FLAGS_6502_B, 1);
-    nes6502_write(nes, 0x0100 + nes->stkp--, nes->status);
+    nes6502_write(nes, 0x0100 + nes->stkp, nes->status);
+    nes->stkp--;
     nes6502_set_flag(nes, FLAGS_6502_B, 0);
     u16 lo = nes6502_read(nes, 0xFFFE);
     u16 hi = nes6502_read(nes, 0xFFFF);
@@ -814,11 +824,14 @@ u8 JMP(nes6502* nes) {
 
 u8 JSR(nes6502* nes) {
     nes->pc--;
-    nes6502_write(nes, 0x0100 + nes->stkp--, (nes->pc >> 8) & 0x00FF);
-    nes6502_write(nes, 0x0100 + nes->stkp--, nes->pc & 0x00FF);
+    nes6502_write(nes, 0x0100 + nes->stkp, (nes->pc >> 8) & 0x00FF);
+    nes->stkp--;
+    nes6502_write(nes, 0x0100 + nes->stkp, nes->pc & 0x00FF);
+    nes->stkp--;
     nes->pc = nes->addr_abs;
     return 0;
 }
+
 
 u8 LDA(nes6502* nes) {
     nes6502_fetch(nes);
@@ -875,14 +888,16 @@ u8 ORA(nes6502* nes) {
 }
 
 u8 PHA(nes6502* nes) {
-    nes6502_write(nes, 0x0100 + nes->stkp--, nes->a);
+    nes6502_write(nes, 0x0100 + nes->stkp, nes->a);
+    nes->stkp--;
     return 0;
 }
 
 u8 PHP(nes6502* nes) {
-    nes6502_write(nes, 0x0100 + nes->stkp--, nes->status | FLAGS_6502_B | FLAGS_6502_U);
+    nes6502_write(nes, 0x0100 + nes->stkp, nes->status | FLAGS_6502_B | FLAGS_6502_U);
     nes6502_set_flag(nes, FLAGS_6502_B, 0);
     nes6502_set_flag(nes, FLAGS_6502_U, 0);
+    nes->stkp--;
     return 0;
 }
 
@@ -903,27 +918,39 @@ u8 PLP(nes6502* nes) {
 
 u8 ROL(nes6502* nes) {
     nes6502_fetch(nes);
-    nes->temp = ((u16)nes->fetched << 1) | nes6502_get_flag(nes, FLAGS_6502_C);
-    nes6502_set_flag(nes, FLAGS_6502_C, nes->temp & 0xFF00);
+
+    u16 carry_in = nes6502_get_flag(nes, FLAGS_6502_C);
+    nes6502_set_flag(nes, FLAGS_6502_C, nes->fetched & 0x80);  // bit 7 into carry
+
+    nes->temp = ((u16)nes->fetched << 1) | carry_in;
+
     nes6502_set_flag(nes, FLAGS_6502_Z, (nes->temp & 0x00FF) == 0);
     nes6502_set_flag(nes, FLAGS_6502_N, nes->temp & 0x80);
+
     if (nes->lookup[nes->opcode].addrmode == IMP)
         nes->a = nes->temp & 0x00FF;
     else
         nes6502_write(nes, nes->addr_abs, nes->temp & 0x00FF);
+
     return 0;
 }
 
 u8 ROR(nes6502* nes) {
     nes6502_fetch(nes);
-    nes->temp = (nes6502_get_flag(nes, FLAGS_6502_C) << 7) | (nes->fetched >> 1);
-    nes6502_set_flag(nes, FLAGS_6502_C, nes->fetched & 0x01);
+
+    u16 carry_in = nes6502_get_flag(nes, FLAGS_6502_C) << 7;
+    nes6502_set_flag(nes, FLAGS_6502_C, nes->fetched & 0x01);  // bit 0 into carry
+
+    nes->temp = ((u16)nes->fetched >> 1) | carry_in;
+
     nes6502_set_flag(nes, FLAGS_6502_Z, (nes->temp & 0x00FF) == 0);
     nes6502_set_flag(nes, FLAGS_6502_N, nes->temp & 0x80);
+
     if (nes->lookup[nes->opcode].addrmode == IMP)
         nes->a = nes->temp & 0x00FF;
     else
         nes6502_write(nes, nes->addr_abs, nes->temp & 0x00FF);
+
     return 0;
 }
 

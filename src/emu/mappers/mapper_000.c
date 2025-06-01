@@ -25,18 +25,22 @@ u8 mapper_000_cpu_map_write(mapper_000* m, u16 addr, u32* mapped_addr, u8 data) 
 }
 
 u8 mapper_000_ppu_map_read(mapper_000* m, u16 addr, u32* mapped_addr) {
-    if (addr < 0x2000) {
+    if (addr >= 0x0000 && addr <= 0x1FFF) {
         *mapped_addr = addr;
         return true;
     }
+
     return false;
 }
 
 u8 mapper_000_ppu_map_write(mapper_000* m, u16 addr, u32* mapped_addr) {
-    // Only allow writes to CHR if using CHR RAM
-    if (addr < 0x2000 && m->chr_banks == 0) {
-        *mapped_addr = addr;
-        return true;
+    if (addr >= 0x0000 && addr <= 0x1FFF) {
+        if (m->chr_banks == 0) {
+            // Treat as RAM
+            *mapped_addr = addr;
+            return true;
+        }
     }
+
     return false;
 }

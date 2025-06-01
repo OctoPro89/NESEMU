@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\src\emu\mappers\mapper_066.c" />
     <ClCompile Include="..\..\src\emu\mappers\mapper_base.c" />
     <ClCompile Include="..\..\src\main.c" />
+    <ClCompile Include="..\..\src\platform.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\emu\2A03\nes2A03.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="..\..\src\emu\mappers\mapper_066.h" />
     <ClInclude Include="..\..\src\emu\mappers\mapper_base.h" />
     <ClInclude Include="..\..\src\emu\mappers\mapper_common.h" />
+    <ClInclude Include="..\..\src\platform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

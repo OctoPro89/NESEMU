@@ -19,6 +19,7 @@
         "window.h": "c",
         "gl.h": "c",
         "stdint.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "*.rh": "c"
     }
 }

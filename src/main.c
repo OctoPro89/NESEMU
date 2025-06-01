@@ -2,7 +2,16 @@
 #include <stdio.h>
 
 int main(int argc, char* argv[]) {
-    if (!emu_run()) {
+    const char* cart_fp = NULL;
+    const char* test_fp = "smb_duck_hunt.nes"; // "nestest.nes";
+    
+    if (argc < 2) {
+        cart_fp = test_fp;
+    } else {
+        cart_fp = argv[1];
+    }
+
+    if (!emu_run(cart_fp)) {
         printf("Failed to start emulator!\n");
         return 1;
     }

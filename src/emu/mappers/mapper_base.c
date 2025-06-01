@@ -260,6 +260,7 @@ void mapper_irq_clear(mapper* m) {
         }
         case MAPPER_TYPE_004: {
             mapper_004_irq_clear(&m->mp.m_004);
+            break;
         }
         case MAPPER_TYPE_066: {
             break;

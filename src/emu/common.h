@@ -20,3 +20,6 @@
 typedef struct {
     u8 r, g, b;
 } pixel;
+
+#define NES_WIDTH 256
+#define NES_HEIGHT 240

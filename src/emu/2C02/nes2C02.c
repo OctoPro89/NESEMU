@@ -237,7 +237,7 @@ u8 nes2C02_ppu_read(nes2C02* nes, u16 addr, u8 read_only) {
     if (cartridge_ppu_read(nes->cart, addr, &data)) {
         // Cartridge
     }
-    else if (addr <= 0x1FFF && nes->cart->chr_is_rom) {
+    else if (addr >= 0x0000 && addr <= 0x1FFF && !nes->cart->chr_is_rom) {
         data = nes->tbl_pattern[(addr & 0x1000) >> 12][addr & 0x0FFF];
     }
     else if (addr >= 0x2000 && addr <= 0x3EFF) {
@@ -290,8 +290,7 @@ void nes2C02_ppu_write(nes2C02* nes, u16 addr, u8 data) {
     if (cartridge_ppu_write(nes->cart, addr, data)) {
         // Handled by cartridge
     }
-    else if (addr <= 0x1FFF && nes->cart->chr_is_rom) {
-        printf("You are not allowed to write into CHR ROM!\n");
+    else if (addr >= 0x0000 && addr <= 0x1FFF && !nes->cart->chr_is_rom) {
         nes->tbl_pattern[(addr & 0x1000) >> 12][addr & 0x0FFF] = data;
     }
     else if (addr >= 0x2000 && addr <= 0x3EFF) {
@@ -337,8 +336,8 @@ void nes2C02_ppu_write(nes2C02* nes, u16 addr, u8 data) {
 
 void nes2C02_connect_cartridge(nes2C02* nes, cartridge* cart) {
     nes->cart = cart;
-    memcpy(nes->tbl_pattern[0], cart->chr_memory, 4096);
-    memcpy(nes->tbl_pattern[1], cart->chr_memory + 4096, 4096);
+    // memcpy(nes->tbl_pattern[0], cart->chr_memory, 4096);
+    // memcpy(nes->tbl_pattern[1], cart->chr_memory + 4096, 4096);
 }
 
 void nes2C02_reset(nes2C02* nes) {
@@ -368,7 +367,7 @@ void IncrementScrollX(nes2C02* nes) {
     if (nes->mask.render_background || nes->mask.render_sprites) {
         if (nes->vram_addr.coarse_x == 31) {
             nes->vram_addr.coarse_x = 0;
-            nes->vram_addr.nametable_x = ~nes->vram_addr.nametable_x & 1;
+            nes->vram_addr.nametable_x = ~nes->vram_addr.nametable_x; // ~nes->vram_addr.nametable_x & 1;
         } else {
             ++nes->vram_addr.coarse_x;
         }
@@ -383,7 +382,7 @@ void IncrementScrollY(nes2C02* nes) {
             nes->vram_addr.fine_y = 0;
             if (nes->vram_addr.coarse_y == 29) {
                 nes->vram_addr.coarse_y = 0;
-                nes->vram_addr.nametable_y = ~nes->vram_addr.nametable_y & 1;
+                nes->vram_addr.nametable_y = ~nes->vram_addr.nametable_y; // ~nes->vram_addr.nametable_y & 1;
             } else if (nes->vram_addr.coarse_y == 31) {
                 nes->vram_addr.coarse_y = 0;
             } else {
@@ -466,39 +465,41 @@ void nes2C02_clock(nes2C02* nes) {
             UpdateShifters(nes);
 
             switch ((nes->cycle - 1) % 8) {
-                case 0: {
+                case 0:
                     LoadBackgroundShifters(nes);
+                    
                     nes->bg_next_tile_id = nes2C02_ppu_read(nes, 0x2000 | (nes->vram_addr.reg & 0x0FFF), false);
                     break;
-                }
-                case 2: {
-                    nes->bg_next_tile_attrib = nes2C02_ppu_read(nes, 0x23C0 | (nes->vram_addr.nametable_y << 11) 
-					                                 | (nes->vram_addr.nametable_x << 10) 
-					                                 | ((nes->vram_addr.coarse_y >> 2) << 3) 
-					                                 | (nes->vram_addr.coarse_x >> 2), false);
-                    if (nes->vram_addr.coarse_y & 0x02) { nes->bg_next_tile_attrib >>= 4; }
-                    if (nes->vram_addr.coarse_x & 0x02) { nes->bg_next_tile_attrib >>= 2; }
+                case 2:
+                    nes->bg_next_tile_attrib = nes2C02_ppu_read(nes, 0x23C0 | (nes->vram_addr.nametable_y << 11)
+                        | (nes->vram_addr.nametable_x << 10)
+                        | ((nes->vram_addr.coarse_y >> 2) << 3)
+                        | (nes->vram_addr.coarse_x >> 2), false);
+
+                    if (nes->vram_addr.coarse_y & 0x02) nes->bg_next_tile_attrib >>= 4;
+                    if (nes->vram_addr.coarse_x & 0x02) nes->bg_next_tile_attrib >>= 2;
                     nes->bg_next_tile_attrib &= 0x03;
                     break;
-                }
-                case 4: {
-                    nes->bg_next_tile_lsb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12) 
-                                                        + ((u16)nes->bg_next_tile_id << 4) 
-                                                        + (nes->vram_addr.fine_y), false);
+
+                    // Compared to the last two, the next two are the easy ones... :P
+
+                case 4:
+                    nes->bg_next_tile_lsb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
+                        + ((u16)nes->bg_next_tile_id << 4)
+                        + (nes->vram_addr.fine_y), false);
+
                     break;
-                }
-                case 6: {
+                case 6:
                     nes->bg_next_tile_msb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
-					                       + ((u16)nes->bg_next_tile_id << 4)
-					                       + (nes->vram_addr.fine_y) + 8, false);
+                        + ((u16)nes->bg_next_tile_id << 4)
+                        + (nes->vram_addr.fine_y) + 8, false);
                     break;
-                }
-                case 7: {
+                case 7:
                     IncrementScrollX(nes);
                     break;
-                }
             }
         }
+
 
         // End of a visible scanline, increment downwards
         if (nes->cycle == 256) {
@@ -553,13 +554,13 @@ void nes2C02_clock(nes2C02* nes) {
                 ++oam_entry;
             }
 
-            nes->status.sprite_overflow = (nes->sprite_count >= 8);
+            // nes->status.sprite_overflow = (nes->sprite_count >= 8);
+            nes->status.sprite_overflow = (nes->sprite_count > 8);
         }
 
         if (nes->cycle == 340) {
             // End of scanline
             for (u8 i = 0; i < nes->sprite_count; ++i) {
-                if (nes->sprite_scanline[i].y >= 240) { continue; }
                 // Extract 8 bit row patterns of the sprite with vertical offset
                 u8 sprite_pattern_bits_lo, sprite_pattern_bits_hi;
                 u16 sprite_pattern_addr_lo, sprite_pattern_addr_hi;
@@ -694,7 +695,7 @@ void nes2C02_clock(nes2C02* nes) {
 
         if (nes->sprite_zero_hit_possible && nes->sprite_zero_being_rendered) {
             if (nes->mask.render_background & nes->mask.render_sprites) {
-                if (!(nes->mask.render_background_left | nes->mask.render_sprites_left)) {
+                if (!(nes->mask.render_background_left || nes->mask.render_sprites_left)) {
                     if (nes->cycle >= 9 && nes->cycle < 258) {
                         nes->status.sprite_zero_hit = 1;
                     }
