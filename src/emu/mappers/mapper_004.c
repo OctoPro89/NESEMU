@@ -24,7 +24,6 @@ u8 mapper_004_cpu_map_read(mapper_004* m, u16 addr, u32* mapped_addr, u8* data) 
 		return true;
 	}
 
-
 	if (addr >= 0x8000 && addr <= 0x9FFF) {
 		*mapped_addr = m->prg_bank[0] + (addr & 0x1FFF);
 		return true;
