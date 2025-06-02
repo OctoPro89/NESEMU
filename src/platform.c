@@ -27,7 +27,7 @@ void platform_sleep_ms(u64 ms) {
 f64 platform_get_elapsed_time_ms() {
     struct timespec now;
     clock_gettime(CLOCK_MONOTONIC, &now);
-    return now.tv_sec + now.tv_nsec * 0.000000001;
+    return now.tv_sec * 1000.0 + now.tv_nsec * 0.000001;
 }
 
 #include <X11/Xlib.h>
@@ -37,6 +37,7 @@ f64 platform_get_elapsed_time_ms() {
 #include <glad/glad.h>
 #include <GL/glx.h>
 
+u8 running = true;
 Display *display;
 Window window;
 GLXContext glContext;
@@ -45,6 +46,8 @@ XEvent event;
 GLuint program;
 GLuint vao, vbo;
 GLuint texture;
+
+typedef void (*glXSwapIntervalEXTProc)(Display*, GLXDrawable, int);
 
 u8 framebuffer[NES_WIDTH * NES_HEIGHT * 3]; // RGB software framebuffer
 
@@ -154,7 +157,7 @@ void platform_render() {
     glXSwapBuffers(display, window);
 }
 
-void cleanup() {
+void platform_shutdown() {
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
     glDeleteTextures(1, &texture);
@@ -187,110 +190,132 @@ void platform_pump_messages() {
                 KeySym k = XLookupKeysym(&event.xkey, 0);
 
                 switch (k) {
-                case XK_space: {
-                    keyboard.space = true;
+                    case XK_space: {
+                        keyboard.space = true;
+                        break;
+                    }
+                    case XK_Up: {
+                        keyboard.up = true;
+                        break;
+                    }
+                    case XK_Down: {
+                        keyboard.down = true;
+                        break;
+                    }
+                    case XK_Left: {
+                        keyboard.left = true;
+                        break;
+                    }
+                    case XK_Right: {
+                        keyboard.right = true;
+                        break;
+                    }
+                    case XK_x: {
+                        keyboard.x = true;
+                        break;
+                    }
+                    case XK_z: {
+                        keyboard.z = true;
+                        break;
+                    }
+                    case XK_f: {
+                        keyboard.f = true;
+                        break;
+                    }
+                    case XK_c: {
+                        keyboard.c = true;
+                        break;
+                    }
+                    case XK_u: {
+                        keyboard.u = true;
+                        break;
+                    }
+                    case XK_Return: {
+                        keyboard.enter = true;
+                        break;
+                    }
+                    case XK_Shift_R: {
+                        keyboard.shift = true;
+                        break;
+                    }
+                    }
+
                     break;
-                }
-                case XK_Up: {
-                    keyboard.up = true;
-                    break;
-                }
-                case XK_Down: {
-                    keyboard.down = true;
-                    break;
-                }
-                case XK_Left: {
-                    keyboard.left = true;
-                    break;
-                }
-                case XK_Right: {
-                    keyboard.right = true;
-                    break;
-                }
-                case XK_x: {
-                    keyboard.x = true;
-                    break;
-                }
-                case XK_z: {
-                    keyboard.z = true;
-                    break;
-                }
-                case XK_Return: {
-                    keyboard.enter = true;
-                    break;
-                }
-                case XK_Shift_R: {
-                    keyboard.shift = true;
-                    break;
-                }
                 }
 
+                case KeyRelease: {
+                    KeySym k = XLookupKeysym(&event.xkey, 0);
+
+                    switch (k) {
+                    case XK_space: {
+                        keyboard.space = false;
+                        break;
+                    }
+                    case XK_Up: {
+                        keyboard.up = false;
+                        break;
+                    }
+                    case XK_Down: {
+                        keyboard.down = false;
+                        break;
+                    }
+                    case XK_Left: {
+                        keyboard.left = false;
+                        break;
+                    }
+                    case XK_Right: {
+                        keyboard.right = false;
+                        break;
+                    }
+                    case XK_x: {
+                        keyboard.x = false;
+                        break;
+                    }
+                    case XK_z: {
+                        keyboard.z = false;
+                        break;
+                    }
+                    case XK_f: {
+                        keyboard.f = false;
+                        break;
+                    }
+                    case XK_c: {
+                        keyboard.c = false;
+                        break;
+                    }
+                    case XK_u: {
+                        keyboard.u = false;
+                        break;
+                    }
+                    case XK_Return: {
+                        keyboard.enter = false;
+                        break;
+                    }
+                    case XK_Shift_R: {
+                        keyboard.shift = false;
+                        break;
+                    }
+                    }
+                }
                 break;
-            }
 
-            case KeyRelease: {
-                KeySym k = XLookupKeysym(&event.xkey, 0);
+                case ClientMessage: {
+                    if ((Atom)event.xclient.data.l[0] == WM_DELETE_WINDOW) {
+                        running = 0;
+                    }
 
-                switch (k) {
-                case XK_space: {
-                    keyboard.space = false;
                     break;
                 }
-                case XK_Up: {
-                    keyboard.up = false;
-                    break;
-                }
-                case XK_Down: {
-                    keyboard.down = false;
-                    break;
-                }
-                case XK_Left: {
-                    keyboard.left = false;
-                    break;
-                }
-                case XK_Right: {
-                    keyboard.right = false;
-                    break;
-                }
-                case XK_x: {
-                    keyboard.x = false;
-                    break;
-                }
-                case XK_z: {
-                    keyboard.z = false;
-                    break;
-                }
-                case XK_Return: {
-                    keyboard.enter = false;
-                    break;
-                }
-                case XK_Shift_R: {
-                    keyboard.shift = false;
-                    break;
-                }
-                }
-            }
-
-                           break;
-
-            case ClientMessage: {
-                if ((Atom)event.xclient.data.l[0] == WM_DELETE_WINDOW) {
-                    running = 0;
-                }
-
                 break;
-            }
-
-                              break;
             }
         }
 }
 
-void platform_open_window(i32 width, i32 height) {
+u8 platform_open_window(i32 width, i32 height) {
     display = XOpenDisplay(NULL);
     if (!display) {
         fprintf(stderr, "Failed to open X display\n");
-        exit(1);
+        return false;
     }
 
     i32 screen = DefaultScreen(display);
@@ -315,7 +340,17 @@ void platform_open_window(i32 width, i32 height) {
 
     if (!gladLoadGLLoader((GLADloadproc)glXGetProcAddress)) {
         fprintf(stderr, "Failed to initialize GLAD\n");
-        exit(1);
+        return false;
+    }
+
+    glXSwapIntervalEXTProc glXSwapIntervalEXT = 
+        (glXSwapIntervalEXTProc)glXGetProcAddressARB((const GLubyte*)"glXSwapIntervalEXT");
+
+    if (glXSwapIntervalEXT) {
+        glXSwapIntervalEXT(display, glXGetCurrentDrawable(), 0); // 0 = disable VSync
+        printf("VSync disabled\n");
+    } else {
+        printf("glXSwapIntervalEXT not supported! VSync enabled\n");
     }
 
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -324,10 +359,16 @@ void platform_open_window(i32 width, i32 height) {
 
     setupQuad();
     setupTexture();
+
+    return true;
 }
 
 keys platform_get_keys() {
     return keyboard;
+}
+
+u8 platform_should_run() {
+    return running;
 }
 
 #endif // _POSIX_C_SOURCE

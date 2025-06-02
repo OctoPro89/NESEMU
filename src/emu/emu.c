@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
 u32 frame_count = 0;
 f64 fps_timer = 0.0;
 f64 fps = 0.0;
+*/
 
 const f64 target_frame_time_ms = 1000.0 / 60.0988;  // ~16.639 ms
 
@@ -25,7 +27,7 @@ char* hex(uint32_t n, uint8_t d) {
 
 u8 emu_run(const char* cart_fp) {
     platform_open_window(256 * 4, 240 * 4);
-    fps_timer = platform_get_elapsed_time_ms();
+    // fps_timer = platform_get_elapsed_time_ms();
 
     bus nes = bus_init();
 
@@ -129,7 +131,7 @@ u8 emu_run(const char* cart_fp) {
 
         platform_render();
 
-        printf("FPS: %0.1f\n", fps);
+        /* printf("FPS: %0.1f\n", fps);
 
         frame_count++;
 
@@ -139,6 +141,8 @@ u8 emu_run(const char* cart_fp) {
             fps_timer = current_time;
             frame_count = 0;
         }
+
+        */
 
         // Throttle to ~60fps
         f64 frame_end_time = platform_get_elapsed_time_ms();

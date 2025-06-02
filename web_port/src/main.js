@@ -4,5 +4,5 @@ async function main(cart) {
 
     await platform_sleep_ms(100); // Wait for cart to load
 
-    let nes = new nes6502();
+    let nes = new nes6502();   
 }
