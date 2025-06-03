@@ -19,10 +19,10 @@ class instruction {
 }
 
 class nes6502 {
-    nes6502_reset() {
+    reset() {
         this.addr_abs = 0xFFFC;
-        let lo = nes6502_read(nes, this.addr_abs);
-        let hi = nes6502_read(nes, this.addr_abs + 1);
+        let lo = this.read(this.addr_abs);
+        let hi = this.read(this.addr_abs + 1);
 
         this.pc = (hi << 8) | lo;
 
@@ -39,64 +39,64 @@ class nes6502 {
         this.cycles = 8;
     }
 
-    nes6502_irq() {
+    irq() {
         if (get_flag(FLAGS_6502.I) == 0) {
-            nes6502_write(nes, 0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
+            this.write(0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
             this.stkp--;
-            nes6502_write(nes, 0x0100 + this.stkp, this.pc & 0x00FF);
+            this.write(0x0100 + this.stkp, this.pc & 0x00FF);
             this.stkp--;
 
-            set_flag(FLAGS_6502.B, 0);
-            set_flag(FLAGS_6502.U, 1);
-            set_flag(FLAGS_6502.I, 1);
-            nes6502_write(nes, 0x0100 + this.stkp, this.status);
+            this.set_flag(FLAGS_6502.B, 0);
+            this.set_flag(FLAGS_6502.U, 1);
+            this.set_flag(FLAGS_6502.I, 1);
+            this.write(0x0100 + this.stkp, this.status);
             this.stkp--;
 
             this.addr_abs = 0xFFFE;
-            let lo = nes6502_read(nes, this.addr_abs);
-            let hi = nes6502_read(nes, this.addr_abs + 1);
+            let lo = this.read(this.addr_abs);
+            let hi = this.read(this.addr_abs + 1);
             this.pc = (hi << 8) | lo;
 
             this.cycles = 7;
         }
     }
 
-    nes6502_nmi() {
-        nes6502_write(nes, 0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
+    nmi() {
+        this.write(0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
         this.stkp--;
-        nes6502_write(nes, 0x0100 + this.stkp, this.pc & 0x00FF);
+        this.write(0x0100 + this.stkp, this.pc & 0x00FF);
         this.stkp--;
 
-        set_flag(FLAGS_6502.B, 0);
-        set_flag(FLAGS_6502.U, 1);
-        set_flag(FLAGS_6502.I, 1);
-        nes6502_write(nes, 0x0100 + this.stkp, this.status);
+        this.set_flag(FLAGS_6502.B, 0);
+        this.set_flag(FLAGS_6502.U, 1);
+        this.set_flag(FLAGS_6502.I, 1);
+        this.write(0x0100 + this.stkp, this.status);
         this.stkp--;
 
         this.addr_abs = 0xFFFA;
-        let lo = nes6502_read(nes, this.addr_abs);
-        let hi = nes6502_read(nes, this.addr_abs + 1);
+        let lo = this.read(this.addr_abs);
+        let hi = this.read(this.addr_abs + 1);
         this.pc = (hi << 8) | lo;
 
         this.cycles = 8;
     }
 
-    nes6502_clock() {
+    clock() {
         if (this.cycles == 0) {
-            this.opcode = nes6502_read(nes, this.pc);
+            this.opcode = this.read(this.pc);
 
-            set_flag(FLAGS_6502.U, true);
+            this.set_flag(FLAGS_6502.U, true);
 
             ++this.pc;
 
             this.cycles = this.lookup[this.opcode].cycles;
 
-            additional_cycle1 = this.lookup[this.opcode].addrmode(nes);
-            additional_cycle2 = this.lookup[this.opcode].operate(nes);
+            additional_cycle1 = this.lookup[this.opcode].addrmode();
+            additional_cycle2 = this.lookup[this.opcode].operate();
 
             this.cycles += (additional_cycle1 & additional_cycle2);
 
-            set_flag(FLAGS_6502.U, true);
+            this.set_flag(FLAGS_6502.U, true);
         }
 
         ++this.clock_count;
@@ -104,19 +104,19 @@ class nes6502 {
         --this.cycles;
     }
 
-    nes6502_complete() {
+    complete() {
         return this.cycles == 0;
     }
 
-    nes6502_connect_bus(b) {
+    connect_bus(b) {
         this.b = b;
     }
 
-    nes6502_get_flag(f) {
+    get_flag(f) {
         return ((this.status & f) > 0) ? 1 : 0;
     }
 
-    nes6502_set_flag(f, v) {
+    set_flag(f, v) {
         if (v) {
             this.status |= f;
         } else {
@@ -124,17 +124,17 @@ class nes6502 {
         }
     }
 
-    nes6502_read(a) {
+    read(a) {
         return bus_cpu_read(this.b, a, false);
     }
 
-    nes6502_write(a, d) {
+    write(a, d) {
         bus_cpu_write(this.b, a, d);
     }
 
-    nes6502_fetch() {
-        if (this.lookup[this.opcode].addrmode != IMP) {
-            this.fetched = nes6502_read(nes, this.addr_abs);
+    fetch() {
+        if (this.lookup[this.opcode].addrmode != this.IMP) {
+            this.fetched = this.read(this.addr_abs);
         }
 
         return this.fetched;
@@ -153,74 +153,74 @@ class nes6502 {
     }
 
     ZP0() {
-        this.addr_abs = nes6502_read(nes, this.pc++);
+        this.addr_abs = this.read(this.pc++);
         this.addr_abs &= 0x00FF;
         return 0;
     }
 
     ZPX() {
-        this.addr_abs = (nes6502_read(nes, this.pc++) + this.x) & 0x00FF;
+        this.addr_abs = (this.read(this.pc++) + this.x) & 0x00FF;
         return 0;
     }
 
     ZPY() {
-        this.addr_abs = (nes6502_read(nes, this.pc++) + this.y) & 0x00FF;
+        this.addr_abs = (this.read(this.pc++) + this.y) & 0x00FF;
         return 0;
     }
 
     REL() {
-        this.addr_rel = nes6502_read(nes, this.pc++);
+        this.addr_rel = this.read(this.pc++);
         if (this.addr_rel & 0x80)
             this.addr_rel |= 0xFF00;
         return 0;
     }
 
     ABS() {
-        let lo = nes6502_read(nes, this.pc++);
-        let hi = nes6502_read(nes, this.pc++);
+        let lo = this.read(this.pc++);
+        let hi = this.read(this.pc++);
         this.addr_abs = (hi << 8) | lo;
         return 0;
     }
 
     ABX() {
-        let lo = nes6502_read(nes, this.pc++);
-        let hi = nes6502_read(nes, this.pc++);
+        let lo = this.read(this.pc++);
+        let hi = this.read(this.pc++);
         this.addr_abs = ((hi << 8) | lo) + this.x;
         return ((this.addr_abs & 0xFF00) != (hi << 8));
     }
 
     ABY() {
-        let lo = nes6502_read(nes, this.pc++);
-        let hi = nes6502_read(nes, this.pc++);
+        let lo = this.read(this.pc++);
+        let hi = this.read(this.pc++);
         this.addr_abs = ((hi << 8) | lo) + this.y;
         return ((this.addr_abs & 0xFF00) != (hi << 8));
     }
 
     IND() {
-        let ptr_lo = nes6502_read(nes, this.pc++);
-        let ptr_hi = nes6502_read(nes, this.pc++);
+        let ptr_lo = this.read(this.pc++);
+        let ptr_hi = this.read(this.pc++);
         let ptr = (ptr_hi << 8) | ptr_lo;
 
         if (ptr_lo == 0x00FF) {
-            this.addr_abs = (nes6502_read(nes, ptr & 0xFF00) << 8) | nes6502_read(nes, ptr);
+            this.addr_abs = (this.read(ptr & 0xFF00) << 8) | this.read(ptr);
         } else {
-            this.addr_abs = (nes6502_read(nes, ptr + 1) << 8) | nes6502_read(nes, ptr);
+            this.addr_abs = (this.read(ptr + 1) << 8) | this.read(ptr);
         }
         return 0;
     }
 
     IZX() {
-        let t = nes6502_read(nes, this.pc++);
-        let lo = nes6502_read(nes, (u8)(t + this.x) & 0x00FF);
-        let hi = nes6502_read(nes, (u8)(t + this.x + 1) & 0x00FF);
+        let t = this.read(this.pc++);
+        let lo = this.read((u8)(t + this.x) & 0x00FF);
+        let hi = this.read((u8)(t + this.x + 1) & 0x00FF);
         this.addr_abs = (hi << 8) | lo;
         return 0;
     }
 
     IZY() {
-        let t = nes6502_read(nes, this.pc++);
-        let lo = nes6502_read(nes, t & 0x00FF);
-        let hi = nes6502_read(nes, (t + 1) & 0x00FF);
+        let t = this.read(this.pc++);
+        let lo = this.read(t & 0x00FF);
+        let hi = this.read((t + 1) & 0x00FF);
         this.addr_abs = ((hi << 8) | lo) + this.y;
         return ((this.addr_abs & 0xFF00) != (hi << 8));
     }
@@ -230,25 +230,25 @@ class nes6502 {
     // -- OPCODES --
 
     ADC() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.a + this.fetched + get_flag(FLAGS_6502.C);
-        set_flag(FLAGS_6502.C, this.temp > 255);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
-        set_flag(FLAGS_6502.V, (~(this.a ^ this.fetched) & (this.a ^ this.temp)) & 0x0080);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.C, this.temp > 255);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
+        this.set_flag(FLAGS_6502.V, (~(this.a ^ this.fetched) & (this.a ^ this.temp)) & 0x0080);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         this.a = this.temp & 0x00FF;
         return 1;
     }
 
     SBC() {
-        nes6502_fetch(nes);
+        this.fetch()
         let value = this.fetched ^ 0x00FF;
         this.temp = this.a + value + get_flag(FLAGS_6502.C);
 
-        set_flag(FLAGS_6502.C, this.temp > 0xFF);
-        set_flag(FLAGS_6502.Z, ((this.temp & 0x00FF) == 0));
-        set_flag(FLAGS_6502.V, ((this.temp ^ this.a) & (this.temp ^ value) & 0x0080));
-        set_flag(FLAGS_6502.N, this.temp & 0x0080);
+        this.set_flag(FLAGS_6502.C, this.temp > 0xFF);
+        this.set_flag(FLAGS_6502.Z, ((this.temp & 0x00FF) == 0));
+        this.set_flag(FLAGS_6502.V, ((this.temp ^ this.a) & (this.temp ^ value) & 0x0080));
+        this.set_flag(FLAGS_6502.N, this.temp & 0x0080);
 
         this.a = this.temp & 0x00FF;
         return 1;
@@ -256,25 +256,25 @@ class nes6502 {
 
 
     AND() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.a = this.a & this.fetched;
-        set_flag(FLAGS_6502.Z, this.a == 0x00);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0x00);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 1;
     }
 
     ASL() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = (this.fetched << 1);
 
-        set_flag(FLAGS_6502.C, this.fetched & 0x80);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.C, this.fetched & 0x80);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
 
         if (this.lookup[this.opcode].addrmode == IMP)
             this.a = this.temp & 0x00FF;
         else
-            nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
+            this.write(this.addr_abs, this.temp & 0x00FF);
 
         return 0;
     }
@@ -314,11 +314,11 @@ class nes6502 {
     }
 
     BIT() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.a & this.fetched;
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.fetched & (1 << 7));
-        set_flag(FLAGS_6502.V, this.fetched & (1 << 6));
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.fetched & (1 << 7));
+        this.set_flag(FLAGS_6502.V, this.fetched & (1 << 6));
         return 0;
     }
 
@@ -357,17 +357,17 @@ class nes6502 {
 
     BRK() {
         this.pc++;
-        set_flag(FLAGS_6502.I, 1);
-        nes6502_write(nes, 0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
+        this.set_flag(FLAGS_6502.I, 1);
+        this.write(0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
         this.stkp--;
-        nes6502_write(nes, 0x0100 + this.stkp, this.pc & 0x00FF);
+        this.write(0x0100 + this.stkp, this.pc & 0x00FF);
         this.stkp--;
-        set_flag(FLAGS_6502.B, 1);
-        nes6502_write(nes, 0x0100 + this.stkp, this.status);
+        this.set_flag(FLAGS_6502.B, 1);
+        this.write(0x0100 + this.stkp, this.status);
         this.stkp--;
-        set_flag(FLAGS_6502.B, 0);
-        let lo = nes6502_read(nes, 0xFFFE);
-        let hi = nes6502_read(nes, 0xFFFF);
+        this.set_flag(FLAGS_6502.B, 0);
+        let lo = this.read(0xFFFE);
+        let hi = this.read(0xFFFF);
         this.pc = (hi << 8) | lo;
         return 0;
     }
@@ -392,89 +392,89 @@ class nes6502 {
         return 0;
     }
 
-    CLC() { set_flag(FLAGS_6502.C, false); return 0; }
-    CLD() { set_flag(FLAGS_6502.D, false); return 0; }
-    CLI() { set_flag(FLAGS_6502.I, false); return 0; }
-    CLV() { set_flag(FLAGS_6502.V, false); return 0; }
+    CLC() { this.set_flag(FLAGS_6502.C, false); return 0; }
+    CLD() { this.set_flag(FLAGS_6502.D, false); return 0; }
+    CLI() { this.set_flag(FLAGS_6502.I, false); return 0; }
+    CLV() { this.set_flag(FLAGS_6502.V, false); return 0; }
 
     CMP() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.a - this.fetched;
-        set_flag(FLAGS_6502.C, this.a >= this.fetched);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.C, this.a >= this.fetched);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         return 1;
     }
 
     CPX() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.x - this.fetched;
-        set_flag(FLAGS_6502.C, this.x >= this.fetched);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.C, this.x >= this.fetched);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         return 0;
     }
 
     CPY() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.y - this.fetched;
-        set_flag(FLAGS_6502.C, this.y >= this.fetched);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.C, this.y >= this.fetched);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         return 0;
     }
 
     DEC() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.fetched - 1;
-        nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.write(this.addr_abs, this.temp & 0x00FF);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         return 0;
     }
 
     DEX() {
         this.x--;
-        set_flag(FLAGS_6502.Z, this.x == 0x00);
-        set_flag(FLAGS_6502.N, this.x & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.x == 0x00);
+        this.set_flag(FLAGS_6502.N, this.x & 0x80);
         return 0;
     }
 
     DEY() {
         this.y--;
-        set_flag(FLAGS_6502.Z, this.y == 0x00);
-        set_flag(FLAGS_6502.N, this.y & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.y == 0x00);
+        this.set_flag(FLAGS_6502.N, this.y & 0x80);
         return 0;
     }
 
     EOR() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.a = this.a ^ this.fetched;
-        set_flag(FLAGS_6502.Z, this.a == 0x00);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0x00);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 1;
     }
 
     INC() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.temp = this.fetched + 1;
-        nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.write(this.addr_abs, this.temp & 0x00FF);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
         return 0;
     }
 
     INX() {
         this.x++;
-        set_flag(FLAGS_6502.Z, this.x == 0x00);
-        set_flag(FLAGS_6502.N, this.x & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.x == 0x00);
+        this.set_flag(FLAGS_6502.N, this.x & 0x80);
         return 0;
     }
 
     INY() {
         this.y++;
-        set_flag(FLAGS_6502.Z, this.y == 0x00);
-        set_flag(FLAGS_6502.N, this.y & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.y == 0x00);
+        this.set_flag(FLAGS_6502.N, this.y & 0x80);
         return 0;
     }
 
@@ -485,9 +485,9 @@ class nes6502 {
 
     JSR() {
         this.pc--;
-        nes6502_write(nes, 0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
+        this.write(0x0100 + this.stkp, (this.pc >> 8) & 0x00FF);
         this.stkp--;
-        nes6502_write(nes, 0x0100 + this.stkp, this.pc & 0x00FF);
+        this.write(0x0100 + this.stkp, this.pc & 0x00FF);
         this.stkp--;
         this.pc = this.addr_abs;
         return 0;
@@ -495,39 +495,39 @@ class nes6502 {
 
 
     LDA() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.a = this.fetched;
-        set_flag(FLAGS_6502.Z, this.a == 0x00);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0x00);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 1;
     }
 
     LDX() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.x = this.fetched;
-        set_flag(FLAGS_6502.Z, this.x == 0x00);
-        set_flag(FLAGS_6502.N, this.x & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.x == 0x00);
+        this.set_flag(FLAGS_6502.N, this.x & 0x80);
         return 1;
     }
 
     LDY() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.y = this.fetched;
-        set_flag(FLAGS_6502.Z, this.y == 0x00);
-        set_flag(FLAGS_6502.N, this.y & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.y == 0x00);
+        this.set_flag(FLAGS_6502.N, this.y & 0x80);
         return 1;
     }
 
     LSR() {
-        nes6502_fetch(nes);
-        set_flag(FLAGS_6502.C, this.fetched & 0x01);
+        this.fetch()
+        this.set_flag(FLAGS_6502.C, this.fetched & 0x01);
         this.temp = this.fetched >> 1;
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
-        if (this.lookup[this.opcode].addrmode == IMP)
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0x00);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
+        if (this.lookup[this.opcode].addrmode == this.IMP)
             this.a = this.temp & 0x00FF;
         else
-            nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
+            this.write(this.addr_abs, this.temp & 0x00FF);
         return 0;
     }
 
@@ -541,146 +541,146 @@ class nes6502 {
     }
 
     ORA() {
-        nes6502_fetch(nes);
+        this.fetch()
         this.a = this.a | this.fetched;
-        set_flag(FLAGS_6502.Z, this.a == 0x00);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0x00);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 1;
     }
 
     PHA() {
-        nes6502_write(nes, 0x0100 + this.stkp, this.a);
+        this.write(0x0100 + this.stkp, this.a);
         this.stkp--;
         return 0;
     }
 
     PHP() {
-        nes6502_write(nes, 0x0100 + this.stkp, this.status | FLAGS_6502.B | FLAGS_6502.U);
-        set_flag(FLAGS_6502.B, 0);
-        set_flag(FLAGS_6502.U, 0);
+        this.write(0x0100 + this.stkp, this.status | FLAGS_6502.B | FLAGS_6502.U);
+        this.set_flag(FLAGS_6502.B, 0);
+        this.set_flag(FLAGS_6502.U, 0);
         this.stkp--;
         return 0;
     }
 
     PLA() {
         this.stkp++;
-        this.a = nes6502_read(nes, 0x0100 + this.stkp);
-        set_flag(FLAGS_6502.Z, this.a == 0x00);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.a = this.read(0x0100 + this.stkp);
+        this.set_flag(FLAGS_6502.Z, this.a == 0x00);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 0;
     }
 
     PLP() {
         this.stkp++;
-        this.status = nes6502_read(nes, 0x0100 + this.stkp);
-        set_flag(FLAGS_6502.U, 1);
+        this.status = this.read(0x0100 + this.stkp);
+        this.set_flag(FLAGS_6502.U, 1);
         return 0;
     }
 
     ROL() {
-        nes6502_fetch(nes);
+        this.fetch()
 
         let carry_in = get_flag(FLAGS_6502.C);
-        set_flag(FLAGS_6502.C, this.fetched & 0x80);  // bit 7 into carry
+        this.set_flag(FLAGS_6502.C, this.fetched & 0x80);  // bit 7 into carry
 
         this.temp = (this.fetched << 1) | carry_in;
 
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
 
-        if (this.lookup[this.opcode].addrmode == IMP)
+        if (this.lookup[this.opcode].addrmode == this.IMP)
             this.a = this.temp & 0x00FF;
         else
-            nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
+            this.write(this.addr_abs, this.temp & 0x00FF);
 
         return 0;
     }
 
     ROR() {
-        nes6502_fetch(nes);
+        this.fetch()
 
         let carry_in = get_flag(FLAGS_6502.C) << 7;
-        set_flag(FLAGS_6502.C, this.fetched & 0x01);  // bit 0 into carry
+        this.set_flag(FLAGS_6502.C, this.fetched & 0x01);  // bit 0 into carry
 
         this.temp = (this.fetched >> 1) | carry_in;
 
-        set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
-        set_flag(FLAGS_6502.N, this.temp & 0x80);
+        this.set_flag(FLAGS_6502.Z, (this.temp & 0x00FF) == 0);
+        this.set_flag(FLAGS_6502.N, this.temp & 0x80);
 
-        if (this.lookup[this.opcode].addrmode == IMP)
+        if (this.lookup[this.opcode].addrmode == this.IMP)
             this.a = this.temp & 0x00FF;
         else
-            nes6502_write(nes, this.addr_abs, this.temp & 0x00FF);
+            this.write(this.addr_abs, this.temp & 0x00FF);
 
         return 0;
     }
 
     RTI() {
         this.stkp++;
-        this.status = nes6502_read(nes, 0x0100 + this.stkp);
+        this.status = this.read(0x0100 + this.stkp);
         this.status &= ~FLAGS_6502.B;
         this.status &= ~FLAGS_6502.U;
 
         this.stkp++;
-        this.pc = nes6502_read(nes, 0x0100 + this.stkp);
+        this.pc = this.read(0x0100 + this.stkp);
         this.stkp++;
-        this.pc |= (nes6502_read(nes, 0x0100 + this.stkp) << 8);
+        this.pc |= (this.read(0x0100 + this.stkp) << 8);
         return 0;
     }
 
     RTS() {
         this.stkp++;
-        this.pc = nes6502_read(nes, 0x0100 + this.stkp);
+        this.pc = this.read(0x0100 + this.stkp);
         this.stkp++;
-        this.pc |= (nes6502_read(nes, 0x0100 + this.stkp) << 8);
+        this.pc |= (this.read(0x0100 + this.stkp) << 8);
         this.pc++;
         return 0;
     }
 
-    SEC() { set_flag(FLAGS_6502.C, 1); return 0; }
-    SED() { set_flag(FLAGS_6502.D, 1); return 0; }
-    SEI() { set_flag(FLAGS_6502.I, 1); return 0; }
+    SEC() { this.set_flag(FLAGS_6502.C, 1); return 0; }
+    SED() { this.set_flag(FLAGS_6502.D, 1); return 0; }
+    SEI() { this.set_flag(FLAGS_6502.I, 1); return 0; }
 
     STA() {
-        nes6502_write(nes, this.addr_abs, this.a);
+        this.write(this.addr_abs, this.a);
         return 0;
     }
 
     STX() {
-        nes6502_write(nes, this.addr_abs, this.x);
+        this.write(this.addr_abs, this.x);
         return 0;
     }
 
     STY() {
-        nes6502_write(nes, this.addr_abs, this.y);
+        this.write(this.addr_abs, this.y);
         return 0;
     }
 
     TAX() {
         this.x = this.a;
-        set_flag(FLAGS_6502.Z, this.x == 0);
-        set_flag(FLAGS_6502.N, this.x & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.x == 0);
+        this.set_flag(FLAGS_6502.N, this.x & 0x80);
         return 0;
     }
 
     TAY() {
         this.y = this.a;
-        set_flag(FLAGS_6502.Z, this.y == 0);
-        set_flag(FLAGS_6502.N, this.y & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.y == 0);
+        this.set_flag(FLAGS_6502.N, this.y & 0x80);
         return 0;
     }
 
     TSX() {
         this.x = this.stkp;
-        set_flag(FLAGS_6502.Z, this.x == 0);
-        set_flag(FLAGS_6502.N, this.x & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.x == 0);
+        this.set_flag(FLAGS_6502.N, this.x & 0x80);
         return 0;
     }
 
     TXA() {
         this.a = this.x;
-        set_flag(FLAGS_6502.Z, this.a == 0);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 0;
     }
 
@@ -691,8 +691,8 @@ class nes6502 {
 
     TYA() {
         this.a = this.y;
-        set_flag(FLAGS_6502.Z, this.a == 0);
-        set_flag(FLAGS_6502.N, this.a & 0x80);
+        this.set_flag(FLAGS_6502.Z, this.a == 0);
+        this.set_flag(FLAGS_6502.N, this.a & 0x80);
         return 0;
     }
 

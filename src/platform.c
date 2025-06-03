@@ -743,3 +743,212 @@ keys platform_get_keys() {
 }
 
 #endif // _WIN64
+
+#ifdef __EMSCRIPTEN__
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <SDL2/SDL.h>
+#include <GLES3/gl3.h>
+#include <emscripten.h>
+
+SDL_Window* window;
+SDL_GLContext gl_context;
+
+GLuint program;
+GLuint vao, vbo;
+GLuint texture;
+
+u8 framebuffer[NES_WIDTH * NES_HEIGHT * 3]; // RGB software framebuffer
+u8 running = 1;
+keys keyboard;
+
+const char* vertexShaderSource =
+    "#version 300 es\n"
+    "in vec2 position;\n"
+    "in vec2 texCoord;\n"
+    "out vec2 TexCoord;\n"
+    "void main() {\n"
+    "    TexCoord = texCoord;\n"
+    "    gl_Position = vec4(position, 0.0, 1.0);\n"
+    "}\n";
+
+const char* fragmentShaderSource =
+    "#version 300 es\n"
+    "precision mediump float;\n"
+    "in vec2 TexCoord;\n"
+    "out vec4 FragColor;\n"
+    "uniform sampler2D screenTexture;\n"
+    "void main() {\n"
+    "    FragColor = texture(screenTexture, TexCoord);\n"
+    "}\n";
+
+
+GLuint compileShader(GLenum type, const char* source) {
+    GLuint shader = glCreateShader(type);
+    glShaderSource(shader, 1, &source, NULL);
+    glCompileShader(shader);
+    GLint ok;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &ok);
+    if (!ok) {
+        char log[512];
+        glGetShaderInfoLog(shader, 512, NULL, log);
+        fprintf(stderr, "Shader error: %s\n", log);
+        exit(1);
+    }
+    return shader;
+}
+
+GLuint createShaderProgram() {
+    GLuint vs = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
+    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+    GLuint prog = glCreateProgram();
+    glAttachShader(prog, vs);
+    glAttachShader(prog, fs);
+    glLinkProgram(prog);
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+    return prog;
+}
+
+void setupQuad() {
+    float quadVertices[] = {
+        // pos     // tex
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f,  0.0f, 1.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+         1.0f,  1.0f,  1.0f, 1.0f
+    };
+
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+}
+
+void setupTexture() {
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, NES_WIDTH, NES_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, framebuffer);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+}
+
+void updateTexture() {
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, NES_WIDTH, NES_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, framebuffer);
+}
+
+void platform_render() {
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glUseProgram(program);
+    glBindVertexArray(vao);
+    updateTexture();
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    SDL_GL_SwapWindow(window);
+}
+
+void platform_sleep_ms(u64 ms) {
+    SDL_Delay((u32)ms);
+}
+
+f64 platform_get_elapsed_time_ms() {
+    return emscripten_get_now(); // high-precision timer
+}
+
+void platform_put_pixel(i32 x, i32 y, u8 r, u8 g, u8 b) {
+    if (x < 0 || x >= NES_WIDTH || y < 0 || y >= NES_HEIGHT) return;
+    i32 index = (y * NES_WIDTH + x) * 3;
+    framebuffer[index + 0] = r;
+    framebuffer[index + 1] = g;
+    framebuffer[index + 2] = b;
+}
+
+void platform_shutdown() {
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteTextures(1, &texture);
+    glDeleteProgram(program);
+    SDL_GL_DeleteContext(gl_context);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
+u8 platform_should_run() {
+    return running;
+}
+
+void platform_pump_messages() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) running = 0;
+        if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
+            bool down = event.type == SDL_KEYDOWN;
+            switch (event.key.keysym.sym) {
+                case SDLK_LSHIFT: keyboard.shift = down; break;
+                case SDLK_RETURN: keyboard.enter = down; break;
+                case SDLK_UP: keyboard.up = down; break;
+                case SDLK_DOWN: keyboard.down = down; break;
+                case SDLK_LEFT: keyboard.left = down; break;
+                case SDLK_RIGHT: keyboard.right = down; break;
+                case SDLK_SPACE: keyboard.space = down; break;
+                case SDLK_z: keyboard.z = down; break;
+                case SDLK_x: keyboard.x = down; break;
+                case SDLK_c: keyboard.c = down; break;
+                case SDLK_f: keyboard.f = down; break;
+                case SDLK_u: keyboard.u = down; break;
+            }
+        }
+    }
+}
+
+u8 platform_open_window(i32 width, i32 height) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
+        return 0;
+    }
+
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+
+    window = SDL_CreateWindow("NESEMU", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+    if (!window) {
+        fprintf(stderr, "SDL_CreateWindow failed: %s\n", SDL_GetError());
+        return 0;
+    }
+
+    gl_context = SDL_GL_CreateContext(window);
+    if (!gl_context) {
+        fprintf(stderr, "SDL_GL_CreateContext failed: %s\n", SDL_GetError());
+        return 0;
+    }
+
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+    program = createShaderProgram();
+    setupQuad();
+    setupTexture();
+
+    return 1;
+}
+
+keys platform_get_keys() {
+    return keyboard;
+}
+
+#endif // __EMSCRIPTEN__
