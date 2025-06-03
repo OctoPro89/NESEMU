@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8CE202502DEDF11C003AB208 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE2024F2DEDF11C003AB208 /* AppDelegate.m */; };
+		8CE202532DEDF11C003AB208 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202522DEDF11C003AB208 /* SceneDelegate.m */; };
+		8CE202562DEDF11C003AB208 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202552DEDF11C003AB208 /* ViewController.m */; };
+		8CE202592DEDF11C003AB208 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CE202572DEDF11C003AB208 /* Main.storyboard */; };
+		8CE2025B2DEDF120003AB208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CE2025A2DEDF120003AB208 /* Assets.xcassets */; };
+		8CE2025E2DEDF120003AB208 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CE2025C2DEDF120003AB208 /* LaunchScreen.storyboard */; };
+		8CE202612DEDF120003AB208 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202602DEDF120003AB208 /* main.m */; };
+		8CE2026C2DEDF186003AB208 /* emu in Resources */ = {isa = PBXBuildFile; fileRef = 8CE202682DEDF186003AB208 /* emu */; };
+		8CE2026D2DEDF186003AB208 /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE2026A2DEDF186003AB208 /* platform.c */; };
+		8CE202712DEDF448003AB208 /* obj_c_platform_interop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202702DEDF448003AB208 /* obj_c_platform_interop.m */; };
+		8CE202992DEE1161003AB208 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8CE202982DEE1161003AB208 /* test.txt */; };
+		8CE202AD2DEF6736003AB208 /* mapper_002.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A12DEF6734003AB208 /* mapper_002.c */; };
+		8CE202AE2DEF6736003AB208 /* bus.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A22DEF6734003AB208 /* bus.c */; };
+		8CE202AF2DEF6736003AB208 /* mapper_base.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A32DEF6734003AB208 /* mapper_base.c */; };
+		8CE202B02DEF6736003AB208 /* nes2C02.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A42DEF6735003AB208 /* nes2C02.c */; };
+		8CE202B12DEF6736003AB208 /* emu.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A52DEF6735003AB208 /* emu.c */; };
+		8CE202B22DEF6736003AB208 /* nes6502.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A62DEF6735003AB208 /* nes6502.c */; };
+		8CE202B32DEF6736003AB208 /* mapper_004.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A72DEF6735003AB208 /* mapper_004.c */; };
+		8CE202B42DEF6736003AB208 /* mapper_001.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A82DEF6735003AB208 /* mapper_001.c */; };
+		8CE202B52DEF6736003AB208 /* mapper_066.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202A92DEF6735003AB208 /* mapper_066.c */; };
+		8CE202B62DEF6736003AB208 /* cartridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202AA2DEF6735003AB208 /* cartridge.c */; };
+		8CE202B72DEF6736003AB208 /* mapper_003.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202AB2DEF6735003AB208 /* mapper_003.c */; };
+		8CE202B82DEF6736003AB208 /* mapper_000.c in Sources */ = {isa = PBXBuildFile; fileRef = 8CE202AC2DEF6735003AB208 /* mapper_000.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8CE2024B2DEDF11C003AB208 /* NESEMU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NESEMU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CE2024E2DEDF11C003AB208 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8CE2024F2DEDF11C003AB208 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8CE202512DEDF11C003AB208 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		8CE202522DEDF11C003AB208 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		8CE202542DEDF11C003AB208 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8CE202552DEDF11C003AB208 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8CE202582DEDF11C003AB208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8CE2025A2DEDF120003AB208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8CE2025D2DEDF120003AB208 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8CE2025F2DEDF120003AB208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8CE202602DEDF120003AB208 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8CE202682DEDF186003AB208 /* emu */ = {isa = PBXFileReference; lastKnownFileType = folder; name = emu; path = ../../../src/emu; sourceTree = "<group>"; };
+		8CE202692DEDF186003AB208 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = ../../../src/platform.h; sourceTree = "<group>"; };
+		8CE2026A2DEDF186003AB208 /* platform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = platform.c; path = ../../../src/platform.c; sourceTree = "<group>"; };
+		8CE2026F2DEDF36A003AB208 /* obj_c_platform_interop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obj_c_platform_interop.h; sourceTree = "<group>"; };
+		8CE202702DEDF448003AB208 /* obj_c_platform_interop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = obj_c_platform_interop.m; sourceTree = "<group>"; };
+		8CE202742DEE00A0003AB208 /* obj_c_interop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obj_c_interop.h; sourceTree = "<group>"; };
+		8CE202982DEE1161003AB208 /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		8CE2029E2DEF6681003AB208 /* platform.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = platform.c; path = ../../src/platform.c; sourceTree = "<group>"; };
+		8CE202A12DEF6734003AB208 /* mapper_002.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_002.c; path = ../../src/emu/mappers/mapper_002.c; sourceTree = "<group>"; };
+		8CE202A22DEF6734003AB208 /* bus.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bus.c; path = ../../src/emu/bus.c; sourceTree = "<group>"; };
+		8CE202A32DEF6734003AB208 /* mapper_base.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_base.c; path = ../../src/emu/mappers/mapper_base.c; sourceTree = "<group>"; };
+		8CE202A42DEF6735003AB208 /* nes2C02.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = nes2C02.c; path = ../../src/emu/2C02/nes2C02.c; sourceTree = "<group>"; };
+		8CE202A52DEF6735003AB208 /* emu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = emu.c; path = ../../src/emu/emu.c; sourceTree = "<group>"; };
+		8CE202A62DEF6735003AB208 /* nes6502.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = nes6502.c; path = ../../src/emu/6502/nes6502.c; sourceTree = "<group>"; };
+		8CE202A72DEF6735003AB208 /* mapper_004.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_004.c; path = ../../src/emu/mappers/mapper_004.c; sourceTree = "<group>"; };
+		8CE202A82DEF6735003AB208 /* mapper_001.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_001.c; path = ../../src/emu/mappers/mapper_001.c; sourceTree = "<group>"; };
+		8CE202A92DEF6735003AB208 /* mapper_066.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_066.c; path = ../../src/emu/mappers/mapper_066.c; sourceTree = "<group>"; };
+		8CE202AA2DEF6735003AB208 /* cartridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cartridge.c; path = ../../src/emu/cartridge.c; sourceTree = "<group>"; };
+		8CE202AB2DEF6735003AB208 /* mapper_003.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_003.c; path = ../../src/emu/mappers/mapper_003.c; sourceTree = "<group>"; };
+		8CE202AC2DEF6735003AB208 /* mapper_000.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapper_000.c; path = ../../src/emu/mappers/mapper_000.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8CE202482DEDF11C003AB208 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8CE202422DEDF11C003AB208 = {
+			isa = PBXGroup;
+			children = (
+				8CE202A22DEF6734003AB208 /* bus.c */,
+				8CE202AA2DEF6735003AB208 /* cartridge.c */,
+				8CE202A52DEF6735003AB208 /* emu.c */,
+				8CE202AC2DEF6735003AB208 /* mapper_000.c */,
+				8CE202A82DEF6735003AB208 /* mapper_001.c */,
+				8CE202A12DEF6734003AB208 /* mapper_002.c */,
+				8CE202AB2DEF6735003AB208 /* mapper_003.c */,
+				8CE202A72DEF6735003AB208 /* mapper_004.c */,
+				8CE202A92DEF6735003AB208 /* mapper_066.c */,
+				8CE202A32DEF6734003AB208 /* mapper_base.c */,
+				8CE202A42DEF6735003AB208 /* nes2C02.c */,
+				8CE202A62DEF6735003AB208 /* nes6502.c */,
+				8CE2029E2DEF6681003AB208 /* platform.c */,
+				8CE202982DEE1161003AB208 /* test.txt */,
+				8CE2024D2DEDF11C003AB208 /* NESEMU */,
+				8CE2024C2DEDF11C003AB208 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8CE2024C2DEDF11C003AB208 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8CE2024B2DEDF11C003AB208 /* NESEMU.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8CE2024D2DEDF11C003AB208 /* NESEMU */ = {
+			isa = PBXGroup;
+			children = (
+				8CE202682DEDF186003AB208 /* emu */,
+				8CE2026A2DEDF186003AB208 /* platform.c */,
+				8CE202692DEDF186003AB208 /* platform.h */,
+				8CE2026F2DEDF36A003AB208 /* obj_c_platform_interop.h */,
+				8CE202702DEDF448003AB208 /* obj_c_platform_interop.m */,
+				8CE2024E2DEDF11C003AB208 /* AppDelegate.h */,
+				8CE2024F2DEDF11C003AB208 /* AppDelegate.m */,
+				8CE202512DEDF11C003AB208 /* SceneDelegate.h */,
+				8CE202522DEDF11C003AB208 /* SceneDelegate.m */,
+				8CE202542DEDF11C003AB208 /* ViewController.h */,
+				8CE202552DEDF11C003AB208 /* ViewController.m */,
+				8CE202572DEDF11C003AB208 /* Main.storyboard */,
+				8CE2025A2DEDF120003AB208 /* Assets.xcassets */,
+				8CE2025C2DEDF120003AB208 /* LaunchScreen.storyboard */,
+				8CE2025F2DEDF120003AB208 /* Info.plist */,
+				8CE202602DEDF120003AB208 /* main.m */,
+				8CE202742DEE00A0003AB208 /* obj_c_interop.h */,
+			);
+			path = NESEMU;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8CE2024A2DEDF11C003AB208 /* NESEMU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8CE202642DEDF120003AB208 /* Build configuration list for PBXNativeTarget "NESEMU" */;
+			buildPhases = (
+				8CE202472DEDF11C003AB208 /* Sources */,
+				8CE202482DEDF11C003AB208 /* Frameworks */,
+				8CE202492DEDF11C003AB208 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NESEMU;
+			productName = NESEMU;
+			productReference = 8CE2024B2DEDF11C003AB208 /* NESEMU.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8CE202432DEDF11C003AB208 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					8CE2024A2DEDF11C003AB208 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+				};
+			};
+			buildConfigurationList = 8CE202462DEDF11C003AB208 /* Build configuration list for PBXProject "NESEMU" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8CE202422DEDF11C003AB208;
+			productRefGroup = 8CE2024C2DEDF11C003AB208 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8CE2024A2DEDF11C003AB208 /* NESEMU */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8CE202492DEDF11C003AB208 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CE2025E2DEDF120003AB208 /* LaunchScreen.storyboard in Resources */,
+				8CE2025B2DEDF120003AB208 /* Assets.xcassets in Resources */,
+				8CE2026C2DEDF186003AB208 /* emu in Resources */,
+				8CE202592DEDF11C003AB208 /* Main.storyboard in Resources */,
+				8CE202992DEE1161003AB208 /* test.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8CE202472DEDF11C003AB208 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CE202AD2DEF6736003AB208 /* mapper_002.c in Sources */,
+				8CE202AE2DEF6736003AB208 /* bus.c in Sources */,
+				8CE202AF2DEF6736003AB208 /* mapper_base.c in Sources */,
+				8CE202B02DEF6736003AB208 /* nes2C02.c in Sources */,
+				8CE202B12DEF6736003AB208 /* emu.c in Sources */,
+				8CE202B22DEF6736003AB208 /* nes6502.c in Sources */,
+				8CE202B32DEF6736003AB208 /* mapper_004.c in Sources */,
+				8CE202B42DEF6736003AB208 /* mapper_001.c in Sources */,
+				8CE202B52DEF6736003AB208 /* mapper_066.c in Sources */,
+				8CE202B62DEF6736003AB208 /* cartridge.c in Sources */,
+				8CE202B72DEF6736003AB208 /* mapper_003.c in Sources */,
+				8CE202B82DEF6736003AB208 /* mapper_000.c in Sources */,
+				8CE2026D2DEDF186003AB208 /* platform.c in Sources */,
+				8CE202712DEDF448003AB208 /* obj_c_platform_interop.m in Sources */,
+				8CE202562DEDF11C003AB208 /* ViewController.m in Sources */,
+				8CE202502DEDF11C003AB208 /* AppDelegate.m in Sources */,
+				8CE202612DEDF120003AB208 /* main.m in Sources */,
+				8CE202532DEDF11C003AB208 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8CE202572DEDF11C003AB208 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8CE202582DEDF11C003AB208 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8CE2025C2DEDF120003AB208 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8CE2025D2DEDF120003AB208 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8CE202622DEDF120003AB208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/ansleyscoglietti/NESEMU/src/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8CE202632DEDF120003AB208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/ansleyscoglietti/NESEMU/src/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8CE202652DEDF120003AB208 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BRZJ8LJKU4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NESEMU/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OctoDev.NESEMU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8CE202662DEDF120003AB208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BRZJ8LJKU4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NESEMU/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OctoDev.NESEMU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8CE202462DEDF11C003AB208 /* Build configuration list for PBXProject "NESEMU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CE202622DEDF120003AB208 /* Debug */,
+				8CE202632DEDF120003AB208 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8CE202642DEDF120003AB208 /* Build configuration list for PBXNativeTarget "NESEMU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CE202652DEDF120003AB208 /* Debug */,
+				8CE202662DEDF120003AB208 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8CE202432DEDF11C003AB208 /* Project object */;
+}

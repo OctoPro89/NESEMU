@@ -95,6 +95,7 @@ u8 emu_run(const char* cart_fp) {
             }
         }
 
+        /*
         if (keyboard.u) {
             system("cls");
 
@@ -128,6 +129,8 @@ u8 emu_run(const char* cart_fp) {
                 printf("%s\n", s);
             }
         }
+         
+        */
 
         platform_render();
 

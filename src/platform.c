@@ -952,3 +952,50 @@ keys platform_get_keys() {
 }
 
 #endif // __EMSCRIPTEN__
+
+#ifdef __APPLE__
+#include <TargetConditionals.h>
+
+#if TARGET_OS_IOS
+
+// Call obj-c functions from C
+#include "obj_c_platform_interop.h"
+
+u8 platform_open_window(i32 width, i32 height) {
+    return ios_init();
+}
+
+void platform_pump_messages(void) {
+    
+}
+
+void platform_shutdown(void) {
+
+}
+
+void platform_sleep_ms(u64 ms) {
+    ios_sleep_ms((u32)ms);
+}
+
+f64 platform_get_elapsed_time_ms(void) {
+    return ios_get_elapsed_ms();
+}
+
+u8 platform_should_run(void) {
+    return true;
+}
+
+void platform_put_pixel(i32 x, i32 y, u8 r, u8 g, u8 b) {
+    return ios_put_pixel(x, y, r, g, b);
+}
+
+void platform_render(void) {
+    ios_render();
+}
+
+keys platform_get_keys(void) {
+    return ios_get_touch_input();
+}
+
+#endif // TARGET_OS_IOS
+#endif // __APPLE__
