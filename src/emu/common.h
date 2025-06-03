@@ -21,5 +21,9 @@ typedef struct {
     u8 r, g, b;
 } pixel;
 
+typedef struct {
+    u8 z, x, enter, shift, up, down, left, right, space, f, c, u;
+} keys;
+
 #define NES_WIDTH 256
 #define NES_HEIGHT 240

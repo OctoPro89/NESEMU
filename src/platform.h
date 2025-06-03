@@ -1,10 +1,6 @@
 #pragma once
 #include <emu/common.h>
 
-typedef struct {
-    u8 z, x, enter, shift, up, down, left, right, space, f, c, u;
-} keys;
-
 u8 platform_open_window(i32 width, i32 height);
 void platform_pump_messages();
 void platform_shutdown();
