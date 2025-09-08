@@ -7,7 +7,7 @@ mapper_001 mapper_001_init(u8 prg_banks, u8 chr_banks) {
     m.prg_banks = prg_banks;
     m.chr_banks = chr_banks;
 
-    m.ram_static = (u8*)malloc(32 * 1024);
+    m.ram_static = (u8*)malloc(MAPPER_SRAM_SIZE);
     mapper_001_reset(&m);
 
     return m;
@@ -119,7 +119,7 @@ u8 mapper_001_ppu_map_read(mapper_001* m, u16 addr, u32* mapped_addr) {
             else
                 *mapped_addr = m->chr_bank_select_4hi * 0x1000 + (addr & 0x0FFF);
         } else {
-            *mapped_addr = m->chr_bank_select_8 * 0x2000 + (addr & 0x1FFF);
+            *mapped_addr = m->chr_bank_select_8 * 0x1000 + (addr & 0x1FFF);
         }
 
         return true;

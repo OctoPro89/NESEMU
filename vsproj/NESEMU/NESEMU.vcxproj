@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\glad\src\glad.c" />
+    <ClCompile Include="..\..\src\emu\2A03\nes2A03.c" />
     <ClCompile Include="..\..\src\emu\2C02\nes2C02.c" />
     <ClCompile Include="..\..\src\emu\6502\nes6502.c" />
     <ClCompile Include="..\..\src\emu\bus.c" />

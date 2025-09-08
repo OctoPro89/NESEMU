@@ -22,8 +22,10 @@ typedef struct {
 } pixel;
 
 typedef struct {
-    u8 z, x, enter, shift, up, down, left, right, space, f, c, u;
+    u8 z, x, enter, shift, up, down, left, right, space, f, c, u, s, l;
 } keys;
 
 #define NES_WIDTH 256
 #define NES_HEIGHT 240
+
+#define MAPPER_SRAM_SIZE 32 * 1024

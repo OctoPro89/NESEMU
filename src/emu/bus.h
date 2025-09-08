@@ -42,3 +42,5 @@ u8 bus_cpu_read(bus* b, u16 addr, u8 read_only);
 void bus_insert_cartridge(bus* b, cartridge* cart);
 void bus_reset(bus* b);
 u8 bus_clock(bus* b);
+
+extern bus bus_global;

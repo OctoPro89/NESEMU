@@ -33,6 +33,9 @@ u8 cartridge_ppu_write(cartridge* cart, u16 addr, u8 data);
 
 void cartridge_reset(cartridge* cart);
 
+u8 cartridge_save_to_file(cartridge* cart, const char* filepath);
+u8 cartridge_load_save(cartridge* cart, const char* filepath);
+
 MIRROR cartridge_mirror(cartridge* cart);
 
 mapper* cartridge_mapper(cartridge* cart);

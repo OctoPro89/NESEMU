@@ -6,7 +6,7 @@
 nes6502 nes6502_init() {
     nes6502 nes = { 0 };
     nes.lookup = (instruction*)malloc(sizeof(instruction) * 256);
-    
+
     u8 i = 0;
 	nes.lookup[i] = (instruction){ "BRK", BRK, IMM, 7 }; ++i;
     nes.lookup[i] = (instruction){ "ORA", ORA, IZX, 6 }; ++i;

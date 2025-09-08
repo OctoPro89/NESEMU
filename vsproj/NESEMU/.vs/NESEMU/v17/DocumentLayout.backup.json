@@ -3,46 +3,19 @@
   "WorkspaceRootPath": "D:\\Programming\\C\\NESEMU\\NESEMU\\vsproj\\NESEMU\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\emu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\6502\\nes6502.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\emu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\main.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2C02\\nes2C02.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{7E262FE0-42DE-4126-8BF3-487F59385A18}|NESEMU.vcxproj|D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2A03\\nes2A03.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,74 +25,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "platform.h",
+              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.h",
+              "RelativeDocumentMoniker": "..\\..\\src\\platform.h",
+              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.h",
+              "RelativeToolTip": "..\\..\\src\\platform.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-08-23T01:05:41.993Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "platform.c",
               "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.c",
               "RelativeDocumentMoniker": "..\\..\\src\\platform.c",
               "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\platform.c",
               "RelativeToolTip": "..\\..\\src\\platform.c",
-              "ViewState": "AgIAAEQBAAAAAAAAAAAAAFkBAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAJoBAAAAAAAAAAAewKQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T18:48:08.191Z",
+              "WhenOpened": "2025-08-23T01:05:08.021Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "nes2A03.c",
+              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2A03\\nes2A03.c",
+              "RelativeDocumentMoniker": "..\\..\\src\\emu\\2A03\\nes2A03.c",
+              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2A03\\nes2A03.c",
+              "RelativeToolTip": "..\\..\\src\\emu\\2A03\\nes2A03.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-06-28T03:53:24.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "emu.c",
               "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\emu.c",
               "RelativeDocumentMoniker": "..\\..\\src\\emu\\emu.c",
               "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\emu.c",
               "RelativeToolTip": "..\\..\\src\\emu\\emu.c",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAAAJAAAAB3AAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAEQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T18:37:29.375Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "nes6502.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\6502\\nes6502.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\6502\\nes6502.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\6502\\nes6502.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\6502\\nes6502.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-01T11:33:47.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "mapper_000.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\mappers\\mapper_000.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\mappers\\mapper_000.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-01T11:21:15.885Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "mapper_base.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\mappers\\mapper_base.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\mappers\\mapper_base.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-01T11:19:27.359Z"
+              "WhenOpened": "2025-06-28T03:50:34.283Z"
             },
             {
               "$type": "Document",
@@ -129,107 +96,9 @@
               "RelativeDocumentMoniker": "..\\..\\src\\main.c",
               "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\main.c",
               "RelativeToolTip": "..\\..\\src\\main.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T10:48:25.662Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "mapper_common.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_common.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\mappers\\mapper_common.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_common.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\mappers\\mapper_common.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-01T04:07:12.126Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "mapper_base.c",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.c",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\mappers\\mapper_base.c",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_base.c",
-              "RelativeToolTip": "..\\..\\src\\emu\\mappers\\mapper_base.c",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAAACYBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T01:54:44.917Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "nes2C02.c",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2C02\\nes2C02.c",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\2C02\\nes2C02.c",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\2C02\\nes2C02.c",
-              "RelativeToolTip": "..\\..\\src\\emu\\2C02\\nes2C02.c",
-              "ViewState": "AgIAAL4CAAAAAAAAAAAYwMwCAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T01:54:16.211Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "bus.c",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.c",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\bus.c",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.c",
-              "RelativeToolTip": "..\\..\\src\\emu\\bus.c",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAJoAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-05-31T22:51:35.711Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "cartridge.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\cartridge.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\cartridge.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-01T11:23:27.411Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "mapper_000.c",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.c",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\mappers\\mapper_000.c",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\mappers\\mapper_000.c",
-              "RelativeToolTip": "..\\..\\src\\emu\\mappers\\mapper_000.c",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-06-01T01:26:18.161Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "cartridge.c",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.c",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\cartridge.c",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\cartridge.c",
-              "RelativeToolTip": "..\\..\\src\\emu\\cartridge.c",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAqwLMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-05-31T23:21:16.579Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "bus.h",
-              "DocumentMoniker": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.h",
-              "RelativeDocumentMoniker": "..\\..\\src\\emu\\bus.h",
-              "ToolTip": "D:\\Programming\\C\\NESEMU\\NESEMU\\src\\emu\\bus.h",
-              "RelativeToolTip": "..\\..\\src\\emu\\bus.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-31T23:06:53.288Z"
+              "WhenOpened": "2025-06-28T03:49:41.643Z"
             }
           ]
         }

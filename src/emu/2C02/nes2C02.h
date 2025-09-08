@@ -76,6 +76,9 @@ typedef struct {
     i16 cycle;
     u8 odd_frame;
 
+    u8 previous_a12_state;
+    u8 a12_low_cycles;
+
     u8 bg_next_tile_id;
     u8 bg_next_tile_attrib;
     u8 bg_next_tile_lsb;

@@ -1,5 +1,6 @@
 #pragma once
 #include <emu/common.h>
+#include <emu/2A03/nes2A03.h>
 
 u8 platform_open_window(i32 width, i32 height);
 void platform_pump_messages();

@@ -8,73 +8,73 @@ nes2C02 nes2C02_init() {
 
     nes.pal_screen = (pixel*)malloc(sizeof(pixel) * 0x40);
 
-    nes.pal_screen[0x00] = (pixel){84, 84, 84};
-	nes.pal_screen[0x01] = (pixel){0, 30, 116};
-	nes.pal_screen[0x02] = (pixel){8, 16, 144};
-	nes.pal_screen[0x03] = (pixel){48, 0, 136};
-	nes.pal_screen[0x04] = (pixel){68, 0, 100};
-	nes.pal_screen[0x05] = (pixel){92, 0, 48};
-	nes.pal_screen[0x06] = (pixel){84, 4, 0};
-	nes.pal_screen[0x07] = (pixel){60, 24, 0};
-	nes.pal_screen[0x08] = (pixel){32, 42, 0};
-	nes.pal_screen[0x09] = (pixel){8, 58, 0};
-	nes.pal_screen[0x0A] = (pixel){0, 64, 0};
-	nes.pal_screen[0x0B] = (pixel){0, 60, 0};
-	nes.pal_screen[0x0C] = (pixel){0, 50, 60};
-	nes.pal_screen[0x0D] = (pixel){0, 0, 0};
-	nes.pal_screen[0x0E] = (pixel){0, 0, 0};
-	nes.pal_screen[0x0F] = (pixel){0, 0, 0};
+    nes.pal_screen[0x00] = (pixel){ 84, 84, 84 };
+    nes.pal_screen[0x01] = (pixel){ 0, 30, 116 };
+    nes.pal_screen[0x02] = (pixel){ 8, 16, 144 };
+    nes.pal_screen[0x03] = (pixel){ 48, 0, 136 };
+    nes.pal_screen[0x04] = (pixel){ 68, 0, 100 };
+    nes.pal_screen[0x05] = (pixel){ 92, 0, 48 };
+    nes.pal_screen[0x06] = (pixel){ 84, 4, 0 };
+    nes.pal_screen[0x07] = (pixel){ 60, 24, 0 };
+    nes.pal_screen[0x08] = (pixel){ 32, 42, 0 };
+    nes.pal_screen[0x09] = (pixel){ 8, 58, 0 };
+    nes.pal_screen[0x0A] = (pixel){ 0, 64, 0 };
+    nes.pal_screen[0x0B] = (pixel){ 0, 60, 0 };
+    nes.pal_screen[0x0C] = (pixel){ 0, 50, 60 };
+    nes.pal_screen[0x0D] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x0E] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x0F] = (pixel){ 0, 0, 0 };
 
-	nes.pal_screen[0x10] = (pixel){152, 150, 152};
-	nes.pal_screen[0x11] = (pixel){8, 76, 196};
-	nes.pal_screen[0x12] = (pixel){48, 50, 236};
-	nes.pal_screen[0x13] = (pixel){92, 30, 228};
-	nes.pal_screen[0x14] = (pixel){136, 20, 176};
-	nes.pal_screen[0x15] = (pixel){160, 20, 100};
-	nes.pal_screen[0x16] = (pixel){152, 34, 32};
-	nes.pal_screen[0x17] = (pixel){120, 60, 0};
-	nes.pal_screen[0x18] = (pixel){84, 90, 0};
-	nes.pal_screen[0x19] = (pixel){40, 114, 0};
-	nes.pal_screen[0x1A] = (pixel){8, 124, 0};
-	nes.pal_screen[0x1B] = (pixel){0, 118, 40};
-	nes.pal_screen[0x1C] = (pixel){0, 102, 120};
-	nes.pal_screen[0x1D] = (pixel){0, 0, 0};
-	nes.pal_screen[0x1E] = (pixel){0, 0, 0};
-	nes.pal_screen[0x1F] = (pixel){0, 0, 0};
+    nes.pal_screen[0x10] = (pixel){ 152, 150, 152 };
+    nes.pal_screen[0x11] = (pixel){ 8, 76, 196 };
+    nes.pal_screen[0x12] = (pixel){ 48, 50, 236 };
+    nes.pal_screen[0x13] = (pixel){ 92, 30, 228 };
+    nes.pal_screen[0x14] = (pixel){ 136, 20, 176 };
+    nes.pal_screen[0x15] = (pixel){ 160, 20, 100 };
+    nes.pal_screen[0x16] = (pixel){ 152, 34, 32 };
+    nes.pal_screen[0x17] = (pixel){ 120, 60, 0 };
+    nes.pal_screen[0x18] = (pixel){ 84, 90, 0 };
+    nes.pal_screen[0x19] = (pixel){ 40, 114, 0 };
+    nes.pal_screen[0x1A] = (pixel){ 8, 124, 0 };
+    nes.pal_screen[0x1B] = (pixel){ 0, 118, 40 };
+    nes.pal_screen[0x1C] = (pixel){ 0, 102, 120 };
+    nes.pal_screen[0x1D] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x1E] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x1F] = (pixel){ 0, 0, 0 };
 
-	nes.pal_screen[0x20] = (pixel){236, 238, 236};
-	nes.pal_screen[0x21] = (pixel){76, 154, 236};
-	nes.pal_screen[0x22] = (pixel){120, 124, 236};
-	nes.pal_screen[0x23] = (pixel){176, 98, 236};
-	nes.pal_screen[0x24] = (pixel){228, 84, 236};
-	nes.pal_screen[0x25] = (pixel){236, 88, 180};
-	nes.pal_screen[0x26] = (pixel){236, 106, 100};
-	nes.pal_screen[0x27] = (pixel){212, 136, 32};
-	nes.pal_screen[0x28] = (pixel){160, 170, 0};
-	nes.pal_screen[0x29] = (pixel){116, 196, 0};
-	nes.pal_screen[0x2A] = (pixel){76, 208, 32};
-	nes.pal_screen[0x2B] = (pixel){56, 204, 108};
-	nes.pal_screen[0x2C] = (pixel){56, 180, 204};
-	nes.pal_screen[0x2D] = (pixel){60, 60, 60};
-	nes.pal_screen[0x2E] = (pixel){0, 0, 0};
-	nes.pal_screen[0x2F] = (pixel){0, 0, 0};
+    nes.pal_screen[0x20] = (pixel){ 236, 238, 236 };
+    nes.pal_screen[0x21] = (pixel){ 76, 154, 236 };
+    nes.pal_screen[0x22] = (pixel){ 120, 124, 236 };
+    nes.pal_screen[0x23] = (pixel){ 176, 98, 236 };
+    nes.pal_screen[0x24] = (pixel){ 228, 84, 236 };
+    nes.pal_screen[0x25] = (pixel){ 236, 88, 180 };
+    nes.pal_screen[0x26] = (pixel){ 236, 106, 100 };
+    nes.pal_screen[0x27] = (pixel){ 212, 136, 32 };
+    nes.pal_screen[0x28] = (pixel){ 160, 170, 0 };
+    nes.pal_screen[0x29] = (pixel){ 116, 196, 0 };
+    nes.pal_screen[0x2A] = (pixel){ 76, 208, 32 };
+    nes.pal_screen[0x2B] = (pixel){ 56, 204, 108 };
+    nes.pal_screen[0x2C] = (pixel){ 56, 180, 204 };
+    nes.pal_screen[0x2D] = (pixel){ 60, 60, 60 };
+    nes.pal_screen[0x2E] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x2F] = (pixel){ 0, 0, 0 };
 
-	nes.pal_screen[0x30] = (pixel){236, 238, 236};
-	nes.pal_screen[0x31] = (pixel){168, 204, 236};
-	nes.pal_screen[0x32] = (pixel){188, 188, 236};
-	nes.pal_screen[0x33] = (pixel){212, 178, 236};
-	nes.pal_screen[0x34] = (pixel){236, 174, 236};
-	nes.pal_screen[0x35] = (pixel){236, 174, 212};
-	nes.pal_screen[0x36] = (pixel){236, 180, 176};
-	nes.pal_screen[0x37] = (pixel){228, 196, 144};
-	nes.pal_screen[0x38] = (pixel){204, 210, 120};
-	nes.pal_screen[0x39] = (pixel){180, 222, 120};
-	nes.pal_screen[0x3A] = (pixel){168, 226, 144};
-	nes.pal_screen[0x3B] = (pixel){152, 226, 180};
-	nes.pal_screen[0x3C] = (pixel){160, 214, 228};
-	nes.pal_screen[0x3D] = (pixel){160, 162, 160};
-	nes.pal_screen[0x3E] = (pixel){0, 0, 0};
-	nes.pal_screen[0x3F] = (pixel){0, 0, 0};
+    nes.pal_screen[0x30] = (pixel){ 236, 238, 236 };
+    nes.pal_screen[0x31] = (pixel){ 168, 204, 236 };
+    nes.pal_screen[0x32] = (pixel){ 188, 188, 236 };
+    nes.pal_screen[0x33] = (pixel){ 212, 178, 236 };
+    nes.pal_screen[0x34] = (pixel){ 236, 174, 236 };
+    nes.pal_screen[0x35] = (pixel){ 236, 174, 212 };
+    nes.pal_screen[0x36] = (pixel){ 236, 180, 176 };
+    nes.pal_screen[0x37] = (pixel){ 228, 196, 144 };
+    nes.pal_screen[0x38] = (pixel){ 204, 210, 120 };
+    nes.pal_screen[0x39] = (pixel){ 180, 222, 120 };
+    nes.pal_screen[0x3A] = (pixel){ 168, 226, 144 };
+    nes.pal_screen[0x3B] = (pixel){ 152, 226, 180 };
+    nes.pal_screen[0x3C] = (pixel){ 160, 214, 228 };
+    nes.pal_screen[0x3D] = (pixel){ 160, 162, 160 };
+    nes.pal_screen[0x3E] = (pixel){ 0, 0, 0 };
+    nes.pal_screen[0x3F] = (pixel){ 0, 0, 0 };
 
     nes.screen = (pixel*)malloc(sizeof(pixel) * 256 * 240);
 
@@ -111,62 +111,63 @@ u8 nes2C02_cpu_read(nes2C02* nes, u16 addr, u8 read_only) {
 
     if (read_only) {
         switch (addr) {
-            case 0x0000: {
-                data = nes->control.reg;
-                break;
-            }
-            case 0x0001: {
-                data = nes->mask.reg;
-                break;
-            }
-            case 0x0002: {
-                data = nes->status.reg;
-                break;
-            }
-            case 0x0003: {
-                break;
-            }
-            case 0x0004: {
-                break;
-            }
-            case 0x0005: {
-                break;
-            }
-            case 0x0006: {
-                break;
-            }
-            case 0x0007: {
-                break;
-            }
+        case 0x0000: {
+            data = nes->control.reg;
+            break;
         }
-    } else {
+        case 0x0001: {
+            data = nes->mask.reg;
+            break;
+        }
+        case 0x0002: {
+            data = nes->status.reg;
+            break;
+        }
+        case 0x0003: {
+            break;
+        }
+        case 0x0004: {
+            break;
+        }
+        case 0x0005: {
+            break;
+        }
+        case 0x0006: {
+            break;
+        }
+        case 0x0007: {
+            break;
+        }
+        }
+    }
+    else {
         switch (addr) {
-            case 0x0000: { break; }
-            case 0x0001: { break; }
-            case 0x0002: {
-                data = (nes->status.reg & 0xE0) | (nes->ppu_data_buffer & 0x1F);
-                nes->status.vertical_blank = 0;
-                nes->address_latch = 0;
-                break;
-            }
-            case 0x0003: { break; }
-            case 0x0004: {
-                u8* p_oam = (u8*)nes->oam;
-                data = p_oam[nes->oam_addr];
-                break;
-            }
-            case 0x0005: { break; }
-            case 0x0006: { break; }
-            case 0x0007: {
+        case 0x0000: { break; }
+        case 0x0001: { break; }
+        case 0x0002: {
+            data = (nes->status.reg & 0xE0) | (nes->ppu_data_buffer & 0x1F);
+            nes->status.vertical_blank = 0;
+            nes->address_latch = 0;
+            break;
+        }
+        case 0x0003: { break; }
+        case 0x0004: {
+            u8* p_oam = (u8*)nes->oam;
+            data = p_oam[nes->oam_addr];
+            break;
+        }
+        case 0x0005: { break; }
+        case 0x0006: { break; }
+        case 0x0007: {
+            data = nes->ppu_data_buffer;
+            nes->ppu_data_buffer = nes2C02_ppu_read(nes, nes->vram_addr.reg, false);
+            if (nes->vram_addr.reg >= 0x3F00) {
                 data = nes->ppu_data_buffer;
-                nes->ppu_data_buffer = nes2C02_ppu_read(nes, nes->vram_addr.reg, false);
-                if (nes->vram_addr.reg >= 0x3F00) {
-                    data = nes->ppu_data_buffer;
-                }
-
-                nes->vram_addr.reg += (nes->control.increment_mode ? 32 : 1);
-                break;
             }
+
+            nes->vram_addr.reg += (nes->control.increment_mode ? 32 : 1);
+            break;
+        }
         }
     }
 
@@ -175,58 +176,60 @@ u8 nes2C02_cpu_read(nes2C02* nes, u16 addr, u8 read_only) {
 
 void nes2C02_cpu_write(nes2C02* nes, u16 addr, u8 data) {
     switch (addr & 0x0007) {
-        case 0x0000: {
-            nes->control.reg = data;
-            nes->tram_addr.nametable_x = nes->control.nametable_x;
-            nes->tram_addr.nametable_y = nes->control.nametable_y;
-            break;
+    case 0x0000: {
+        nes->control.reg = data;
+        nes->tram_addr.nametable_x = nes->control.nametable_x;
+        nes->tram_addr.nametable_y = nes->control.nametable_y;
+        break;
+    }
+    case 0x0001: {
+        nes->mask.reg = data;
+        break;
+    }
+    case 0x0002: {
+        break;
+    }
+    case 0x0003: {
+        nes->oam_addr = data;
+        break;
+    }
+    case 0x0004: {
+        u8* p_oam = (u8*)nes->oam;
+        p_oam[nes->oam_addr] = data;
+        break;
+    }
+    case 0x0005: {
+        if (nes->address_latch == 0) {
+            nes->fine_x = data & 0x07;
+            nes->tram_addr.coarse_x = data >> 3;
+            nes->address_latch = 1;
         }
-        case 0x0001: {
-            nes->mask.reg = data;
-            break;
+        else {
+            nes->tram_addr.fine_y = data & 0x07;
+            nes->tram_addr.coarse_y = data >> 3;
+            nes->address_latch = 0;
         }
-        case 0x0002: {
-            break;
-        }
-        case 0x0003: {
-            nes->oam_addr = data;
-            break;
-        }
-        case 0x0004: {
-            u8* p_oam = (u8*)nes->oam;
-            p_oam[nes->oam_addr] = data;
-            break;
-        }
-        case 0x0005: {
-            if (nes->address_latch == 0) {
-                nes->fine_x = data & 0x07;
-                nes->tram_addr.coarse_x = data >> 3;
-                nes->address_latch = 1;
-            } else {
-                nes->tram_addr.fine_y = data & 0x07;
-                nes->tram_addr.coarse_y = data >> 3;
-                nes->address_latch = 0;
-            }
 
-            break;
+        break;
+    }
+    case 0x0006: {
+        if (nes->address_latch == 0) {
+            nes->tram_addr.reg = (u16)((data & 0x3F) << 8) | (nes->tram_addr.reg & 0x00FF);
+            nes->address_latch = 1;
         }
-        case 0x0006: {
-            if (nes->address_latch == 0) {
-                nes->tram_addr.reg = (u16)((data & 0x3F) << 8) | (nes->tram_addr.reg & 0x00FF);
-                nes->address_latch = 1;
-            } else {
-                nes->tram_addr.reg = (nes->tram_addr.reg & 0xFF00) | data;
-                nes->vram_addr = nes->tram_addr;
-                nes->address_latch = 0;
-            }
+        else {
+            nes->tram_addr.reg = (nes->tram_addr.reg & 0xFF00) | data;
+            nes->vram_addr = nes->tram_addr;
+            nes->address_latch = 0;
+        }
 
-            break;
-        }
-        case 0x0007: {
-            nes2C02_ppu_write(nes, nes->vram_addr.reg, data);
-            nes->vram_addr.reg += (nes->control.increment_mode ? 32 : 1);
-            break;
-        }
+        break;
+    }
+    case 0x0007: {
+        nes2C02_ppu_write(nes, nes->vram_addr.reg, data);
+        nes->vram_addr.reg += (nes->control.increment_mode ? 32 : 1);
+        break;
+    }
     }
 }
 
@@ -368,7 +371,8 @@ void IncrementScrollX(nes2C02* nes) {
         if (nes->vram_addr.coarse_x == 31) {
             nes->vram_addr.coarse_x = 0;
             nes->vram_addr.nametable_x = ~nes->vram_addr.nametable_x; // ~nes->vram_addr.nametable_x & 1;
-        } else {
+        }
+        else {
             ++nes->vram_addr.coarse_x;
         }
     }
@@ -378,14 +382,17 @@ void IncrementScrollY(nes2C02* nes) {
     if (nes->mask.render_background || nes->mask.render_sprites) {
         if (nes->vram_addr.fine_y < 7) {
             ++nes->vram_addr.fine_y;
-        } else {
+        }
+        else {
             nes->vram_addr.fine_y = 0;
             if (nes->vram_addr.coarse_y == 29) {
                 nes->vram_addr.coarse_y = 0;
                 nes->vram_addr.nametable_y = ~nes->vram_addr.nametable_y; // ~nes->vram_addr.nametable_y & 1;
-            } else if (nes->vram_addr.coarse_y == 31) {
+            }
+            else if (nes->vram_addr.coarse_y == 31) {
                 nes->vram_addr.coarse_y = 0;
-            } else {
+            }
+            else {
                 ++nes->vram_addr.coarse_y;
             }
         }
@@ -427,7 +434,8 @@ void UpdateShifters(nes2C02* nes) {
         for (i32 i = 0; i < nes->sprite_count; ++i) {
             if (nes->sprite_scanline[i].x > 0) {
                 --nes->sprite_scanline[i].x;
-            } else {
+            }
+            else {
                 nes->sprite_shifter_pattern_lo[i] <<= 1;
                 nes->sprite_shifter_pattern_hi[i] <<= 1;
             }
@@ -465,38 +473,38 @@ void nes2C02_clock(nes2C02* nes) {
             UpdateShifters(nes);
 
             switch ((nes->cycle - 1) % 8) {
-                case 0:
-                    LoadBackgroundShifters(nes);
-                    
-                    nes->bg_next_tile_id = nes2C02_ppu_read(nes, 0x2000 | (nes->vram_addr.reg & 0x0FFF), false);
-                    break;
-                case 2:
-                    nes->bg_next_tile_attrib = nes2C02_ppu_read(nes, 0x23C0 | (nes->vram_addr.nametable_y << 11)
-                        | (nes->vram_addr.nametable_x << 10)
-                        | ((nes->vram_addr.coarse_y >> 2) << 3)
-                        | (nes->vram_addr.coarse_x >> 2), false);
+            case 0:
+                LoadBackgroundShifters(nes);
 
-                    if (nes->vram_addr.coarse_y & 0x02) nes->bg_next_tile_attrib >>= 4;
-                    if (nes->vram_addr.coarse_x & 0x02) nes->bg_next_tile_attrib >>= 2;
-                    nes->bg_next_tile_attrib &= 0x03;
-                    break;
+                nes->bg_next_tile_id = nes2C02_ppu_read(nes, 0x2000 | (nes->vram_addr.reg & 0x0FFF), false);
+                break;
+            case 2:
+                nes->bg_next_tile_attrib = nes2C02_ppu_read(nes, 0x23C0 | (nes->vram_addr.nametable_y << 11)
+                    | (nes->vram_addr.nametable_x << 10)
+                    | ((nes->vram_addr.coarse_y >> 2) << 3)
+                    | (nes->vram_addr.coarse_x >> 2), false);
 
-                    // Compared to the last two, the next two are the easy ones... :P
+                if (nes->vram_addr.coarse_y & 0x02) nes->bg_next_tile_attrib >>= 4;
+                if (nes->vram_addr.coarse_x & 0x02) nes->bg_next_tile_attrib >>= 2;
+                nes->bg_next_tile_attrib &= 0x03;
+                break;
 
-                case 4:
-                    nes->bg_next_tile_lsb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
-                        + ((u16)nes->bg_next_tile_id << 4)
-                        + (nes->vram_addr.fine_y), false);
+                // Compared to the last two, the next two are the easy ones... :P
 
-                    break;
-                case 6:
-                    nes->bg_next_tile_msb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
-                        + ((u16)nes->bg_next_tile_id << 4)
-                        + (nes->vram_addr.fine_y) + 8, false);
-                    break;
-                case 7:
-                    IncrementScrollX(nes);
-                    break;
+            case 4:
+                nes->bg_next_tile_lsb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
+                    + ((u16)nes->bg_next_tile_id << 4)
+                    + (nes->vram_addr.fine_y), false);
+
+                break;
+            case 6:
+                nes->bg_next_tile_msb = nes2C02_ppu_read(nes, (nes->control.pattern_background << 12)
+                    + ((u16)nes->bg_next_tile_id << 4)
+                    + (nes->vram_addr.fine_y) + 8, false);
+                break;
+            case 7:
+                IncrementScrollX(nes);
+                break;
             }
         }
 
@@ -570,27 +578,32 @@ void nes2C02_clock(nes2C02* nes) {
                     if (!(nes->sprite_scanline[i].attribute & 0x80)) {
                         // sprite is not flipped vertically
                         sprite_pattern_addr_lo = (nes->control.pattern_sprite << 12) | (nes->sprite_scanline[i].id << 4) | (nes->scanline - nes->sprite_scanline[i].y);
-                    } else {
+                    }
+                    else {
                         // sprite is flipped vertically
                         sprite_pattern_addr_lo = (nes->control.pattern_sprite << 12) | (nes->sprite_scanline[i].id << 4) | (7 - (nes->scanline - nes->sprite_scanline[i].y));
                     }
-                } else {
+                }
+                else {
                     // 8x16 sprite mode
                     if (!(nes->sprite_scanline[i].attribute & 0x80)) {
                         // sprite is not flipped vertically
                         if (nes->scanline - nes->sprite_scanline[i].y < 8) {
                             // read top half tile
                             sprite_pattern_addr_lo = ((nes->sprite_scanline[i].id & 0x01) << 12) | ((nes->sprite_scanline[i].id & 0xFE) << 4) | ((nes->scanline - nes->sprite_scanline[i].y) & 0x07);
-                        } else {
+                        }
+                        else {
                             // read bottom half tile
                             sprite_pattern_addr_lo = ((nes->sprite_scanline[i].id & 0x01) << 12) | (((nes->sprite_scanline[i].id & 0xFE) + 1) << 4) | ((nes->scanline - nes->sprite_scanline[i].y) & 0x07);
                         }
-                    } else {
+                    }
+                    else {
                         // sprite is flipped vertically
                         if (nes->scanline - nes->sprite_scanline[i].y < 8) {
                             // read top half tile
                             sprite_pattern_addr_lo = ((nes->sprite_scanline[i].id & 0x01) << 12) | (((nes->sprite_scanline[i].id & 0xFE) + 1) << 4) | (7 - ((nes->scanline - nes->sprite_scanline[i].y) & 0x07));
-                        } else {
+                        }
+                        else {
                             // read bottom half tile
                             sprite_pattern_addr_lo = ((nes->sprite_scanline[i].id & 0x01) << 12) | ((nes->sprite_scanline[i].id & 0xFE) << 4) | (7 - ((nes->scanline - nes->sprite_scanline[i].y) & 0x07));
                         }
@@ -619,7 +632,7 @@ void nes2C02_clock(nes2C02* nes) {
         if (nes->scanline == 241 && nes->cycle == 1) {
             nes->status.vertical_blank = 1;
 
-            if  (nes->control.enable_nmi) {
+            if (nes->control.enable_nmi) {
                 nes->nmi = true;
             }
         }
@@ -678,17 +691,21 @@ void nes2C02_clock(nes2C02* nes) {
     if (bg_pixel == 0 && fg_pixel == 0) {
         pixel = 0x00;
         palette = 0x00;
-    } else if (bg_pixel == 0 && fg_pixel > 0) {
+    }
+    else if (bg_pixel == 0 && fg_pixel > 0) {
         pixel = fg_pixel;
         palette = fg_palette;
-    } else if (bg_pixel > 0 && fg_pixel == 0) {
+    }
+    else if (bg_pixel > 0 && fg_pixel == 0) {
         pixel = bg_pixel;
         palette = bg_palette;
-    } else if (bg_pixel > 0 && fg_pixel > 0) {
+    }
+    else if (bg_pixel > 0 && fg_pixel > 0) {
         if (fg_priority) {
             pixel = fg_pixel;
             palette = fg_palette;
-        } else {
+        }
+        else {
             pixel = bg_pixel;
             palette = bg_palette;
         }
@@ -699,7 +716,8 @@ void nes2C02_clock(nes2C02* nes) {
                     if (nes->cycle >= 9 && nes->cycle < 258) {
                         nes->status.sprite_zero_hit = 1;
                     }
-                } else {
+                }
+                else {
                     if (nes->cycle >= 1 && nes->cycle < 258) {
                         nes->status.sprite_zero_hit = 1;
                     }

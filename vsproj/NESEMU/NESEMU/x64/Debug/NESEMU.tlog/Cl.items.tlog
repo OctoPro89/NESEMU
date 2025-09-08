@@ -1,4 +1,5 @@
 D:\Programming\C\NESEMU\NESEMU\lib\glad\src\glad.c;D:\Programming\C\NESEMU\NESEMU\vsproj\NESEMU\NESEMU\x64\Debug\glad.obj
+D:\Programming\C\NESEMU\NESEMU\src\emu\2A03\nes2A03.c;D:\Programming\C\NESEMU\NESEMU\vsproj\NESEMU\NESEMU\x64\Debug\nes2A03.obj
 D:\Programming\C\NESEMU\NESEMU\src\emu\2C02\nes2C02.c;D:\Programming\C\NESEMU\NESEMU\vsproj\NESEMU\NESEMU\x64\Debug\nes2C02.obj
 D:\Programming\C\NESEMU\NESEMU\src\emu\6502\nes6502.c;D:\Programming\C\NESEMU\NESEMU\vsproj\NESEMU\NESEMU\x64\Debug\nes6502.obj
 D:\Programming\C\NESEMU\NESEMU\src\emu\bus.c;D:\Programming\C\NESEMU\NESEMU\vsproj\NESEMU\NESEMU\x64\Debug\bus.obj

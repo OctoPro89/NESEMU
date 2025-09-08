@@ -15,6 +15,8 @@ typedef struct {
     char unused[5];
 } iNESHEADER;
 
+#define DEFAULT_SRAM_SIZE 8192
+
 cartridge cartridge_init(const char* filepath) {
     cartridge cart = { 0 };
 
@@ -192,6 +194,64 @@ u8 cartridge_ppu_write(cartridge* cart, u16 addr, u8 data) {
 
 void cartridge_reset(cartridge* cart) {
     mapper_reset(&cart->m);
+}
+
+u8 cartridge_save_to_file(cartridge* cart, const char* filepath) {
+    if (cart->image_valid != true) {
+        return false;
+    }
+
+    // The other ones generally don't support saving
+    if (cart->mapper_id != 1 && cart->mapper_id != 4) {
+        return false;
+    }
+
+    FILE* f = fopen(filepath, "wb");
+    if (!f) {
+        return false;
+    }
+
+    switch (cart->mapper_id) {
+        case 1: {
+            fwrite(cart->m.mp.m_001.ram_static, MAPPER_SRAM_SIZE, 1, f);
+            break;
+        }
+        case 4: {
+            fwrite(cart->m.mp.m_001.ram_static, MAPPER_SRAM_SIZE, 1, f);
+            break;
+        }
+    }
+
+    return true;
+}
+
+u8 cartridge_load_save(cartridge* cart, const char* filepath) {
+    if (cart->image_valid != true) {
+        return false;
+    }
+
+    // The other ones generally don't support saving
+    if (cart->mapper_id != 1 && cart->mapper_id != 4) {
+        return false;
+    }
+
+    FILE* f = fopen(filepath, "rb");
+    if (!f) {
+        return false;
+    }
+
+    switch (cart->mapper_id) {
+        case 1: {
+            fread(cart->m.mp.m_001.ram_static, 1, MAPPER_SRAM_SIZE, f);
+            break;
+        }
+        case 4: {
+            fread(cart->m.mp.m_001.ram_static, 1, MAPPER_SRAM_SIZE, f);
+            break;
+        }
+    }
+
+    return true;
 }
 
 MIRROR cartridge_mirror(cartridge* cart) {

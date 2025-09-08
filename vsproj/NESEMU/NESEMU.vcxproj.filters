@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\src\platform.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\emu\2A03\nes2A03.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\emu\bus.h">

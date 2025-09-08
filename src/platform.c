@@ -230,6 +230,14 @@ void platform_pump_messages() {
                         keyboard.u = true;
                         break;
                     }
+                    case XK_s: {
+                        keyboard.s = true;
+                        break;
+                    }
+                    case XK_l: {
+                        keyboard.l = true;
+                        break;
+                    }
                     case XK_Return: {
                         keyboard.enter = true;
                         break;
@@ -285,6 +293,14 @@ void platform_pump_messages() {
                     }
                     case XK_u: {
                         keyboard.u = false;
+                        break;
+                    }
+                    case XK_s: {
+                        keyboard.s = false;
+                        break;
+                    }
+                    case XK_l: {
+                        keyboard.l = false;
                         break;
                     }
                     case XK_Return: {
@@ -382,6 +398,7 @@ u8 platform_should_run() {
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#include <mmsystem.h>
 #include <timeapi.h>
 
 #pragma comment(lib, "Winmm.lib")
@@ -494,6 +511,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 case 'U':
                     keyboard.u = true;
                     break;
+                case 'S':
+                    keyboard.s = true;
+                    break;
+                case 'L':
+                    keyboard.l = true;
+                    break;
             }
             break;
         case WM_KEYUP:
@@ -534,10 +557,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 case 'U':
                     keyboard.u = false;
                     break;
+                case 'S':
+                    keyboard.s = false;
+                    break;
+                case 'L':
+                    keyboard.l = false;
+                    break;
             }
             break;
     }
-    return DefWindowProc(hwnd, msg, wParam, lParam);
+
+    return DefWindowProcA(hwnd, msg, wParam, lParam);
 }
 
 void platform_sleep_ms(u64 ms) {

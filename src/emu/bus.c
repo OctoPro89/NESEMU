@@ -3,8 +3,24 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <stdio.h>
+#include <platform.h>
 
 #define NES_PPU_CLOCK 5369318.0
+
+bus bus_global = { 0 };
+float outputted_sample = 0.0f;
+u8 bus_initialized = false;
+
+void nes_audio_mix_callback(f32* output, u32 frame_count) {
+    if (!bus_initialized || !platform_should_run()) return;
+    
+    for (u32 i = 0; i < frame_count; ++i) {
+        while (!bus_clock(&bus_global));
+
+        output[i * 2 + 0] += outputted_sample;
+        output[i * 2 + 1] += outputted_sample;
+    }
+}
 
 bus bus_init() {
     bus b = { 0 };
@@ -16,7 +32,7 @@ bus bus_init() {
     nes6502_connect_bus(&b.cpu, &b);
 
     b.ppu = nes2C02_init();
-    // b.apu = nes2A03_init();
+    b.apu = nes2A03_init();
 
     return b;
 }
@@ -24,13 +40,15 @@ bus bus_init() {
 void bus_destroy(bus* b) {
     nes6502_destroy(&b->cpu);
     nes2C02_destroy(&b->ppu);
-    // nes2A03_destroy(&b->cpu);
+    nes2A03_destroy(&b->apu);
     cartridge_destroy(b->cart);
+    free(b->ram);
 }
 
 void bus_set_sample_frequency(bus* b, u32 sample_rate) {
     b->audio_time_per_system_sample = 1.0 / (f64)sample_rate;
     b->audio_time_per_nes_clock = 1.0 / NES_PPU_CLOCK; // PPU Clock Frequency
+    bus_initialized = true;
 }
 
 void bus_cpu_write(bus* b, u16 addr, u8 data) {
@@ -41,7 +59,7 @@ void bus_cpu_write(bus* b, u16 addr, u8 data) {
     } else if (addr >= 0x2000 && addr <= 0x3FFF) {
         nes2C02_cpu_write(&b->ppu, addr & 0x007, data);
     } else if ((addr >= 0x4000 && addr <= 0x4013) || addr == 0x4015 || addr == 0x4017) {
-        // nes2A03_cpu_write(&b->apu, addr, data);
+        nes2A03_cpu_write(&b->apu, addr, data);
     } else if (addr == 0x4014) {
         b->dma_page = data;
         b->dma_addr = 0x00;
@@ -69,7 +87,7 @@ u8 bus_cpu_read(bus* b, u16 addr, u8 read_only) {
     } else if (addr >= 0x2000 && addr <= 0x3FFF) {
         data = nes2C02_cpu_read(&b->ppu, addr & 0x0007, read_only);
     } else if (addr == 0x4015) {
-        // data = nes2A03_cpu_read(&b->apu, addr & 0x0007, read_only);
+        data = nes2A03_cpu_read(&b->apu, addr & 0x0007);
     } else if (addr == 0x4016) {
         u8 bit = (b->controller_state[0] & 0x80) ? 1 : 0;
 
@@ -112,7 +130,7 @@ void bus_reset(bus* b) {
 
 u8 bus_clock(bus* b) {
 	nes2C02_clock(&b->ppu);
-	// nes2A03_clock(&b->apu);
+	nes2A03_clock(&b->apu);
 
 	// CPU runs 3 times slower than the apu and ppu
 	if (b->system_clock_counter % 3 == 0) {
@@ -156,7 +174,8 @@ u8 bus_clock(bus* b) {
 	b->audio_time += b->audio_time_per_nes_clock;
 	if (b->audio_time >= b->audio_time_per_system_sample) {
 		b->audio_time -= b->audio_time_per_system_sample;
-		// b->audio_sample = nes2A03_get_output_sample(&b->apu);
+		b->audio_sample = nes2A03_get_output_sample(&b->apu);
+        outputted_sample = (f32)b->audio_sample;
         sample_ready = true;
 	}
 

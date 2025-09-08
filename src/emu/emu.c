@@ -5,14 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-u32 frame_count = 0;
-f64 fps_timer = 0.0;
-f64 fps = 0.0;
-*/
-
-const f64 target_frame_time_ms = 1000.0 / 60.0988;  // ~16.639 ms
-
 char h[9];
 
 char* hex(uint32_t n, uint8_t d) {
@@ -25,13 +17,18 @@ char* hex(uint32_t n, uint8_t d) {
     return h;
 }
 
-u8 emu_run(const char* cart_fp) {
-    platform_open_window(256 * 4, 240 * 4);
-    // fps_timer = platform_get_elapsed_time_ms();
+u8 emu_run(const char* cart_fp, const char* save_fp) {
+    platform_open_window(NES_WIDTH * 4, NES_HEIGHT * 4);
 
-    bus nes = bus_init();
+    bus_global = bus_init();
 
     cartridge cart = cartridge_init(cart_fp);
+
+    if (save_fp != NULL) {
+        if (!cartridge_load_save(&cart, save_fp)) {
+            printf("Failed to open save file or game doesn't support loading saves.\n");
+        }
+    }
 
     if (!cartridge_image_valid(&cart)) {
         printf("Invalid cartridge image! (Failed to load cartridge)\n");
@@ -40,24 +37,17 @@ u8 emu_run(const char* cart_fp) {
 
     printf("Loaded cart: %s\n", cart_fp);
 
-    bus_insert_cartridge(&nes, &cart);
+    bus_insert_cartridge(&bus_global, &cart);
 
-    bus_reset(&nes);
-    bus_set_sample_frequency(&nes, 44100);
-
-    f64 prev_time = 0.0;
-    f64 now_time = 0.0;
-    f64 residual_time = 0.0;
-    f64 elapsed_time = 0.0;
+    bus_reset(&bus_global);
+    bus_set_sample_frequency(&bus_global, 48000);
 
     while (platform_should_run()) {
-        f64 frame_start_time = platform_get_elapsed_time_ms();
-
         platform_pump_messages();
 
         keys keyboard = platform_get_keys();
 
-        nes.controller[0] =
+        bus_global.controller[0] =
             (keyboard.right << 0) |
             (keyboard.left << 1) |
             (keyboard.down << 2) |
@@ -67,26 +57,11 @@ u8 emu_run(const char* cart_fp) {
             (keyboard.z << 6) |
             (keyboard.x << 7);
 
-        now_time = platform_get_elapsed_time_ms();
-        elapsed_time = ((now_time - prev_time) / 1000.0);
-        prev_time = now_time;
-
-        if (residual_time > 0.0) {
-            residual_time -= elapsed_time;
-        }
-        else {
-            residual_time += (1.0 / 60.0) - elapsed_time;
-            do {
-                bus_clock(&nes);
-            } while (!nes.ppu.frame_complete);
-            nes.ppu.frame_complete = false;
-        }
-
         // Draw rendered output
         for (u32 j = 0; j < NES_HEIGHT; ++j) {
             for (u32 i = 0; i < NES_WIDTH; ++i) {
                 u32 index = j * NES_WIDTH + i;
-                pixel* p = &nes.ppu.screen[index];
+                pixel* p = &bus_global.ppu.screen[index];
 
                 // Flip the Y-coordinate
                 u32 flipped_j = NES_HEIGHT - 1 - j;
@@ -95,70 +70,19 @@ u8 emu_run(const char* cart_fp) {
             }
         }
 
-        /*
-        if (keyboard.u) {
-            system("cls");
-
-            printf("Status: %s %s %s %s %s %s %s %s\n",
-                nes.cpu.status & FLAGS_6502_N ? "N" : " ",
-                nes.cpu.status & FLAGS_6502_V ? "V" : " ",
-                nes.cpu.status & FLAGS_6502_U ? "-" : " ",
-                nes.cpu.status & FLAGS_6502_B ? "B" : " ",
-                nes.cpu.status & FLAGS_6502_D ? "D" : " ",
-                nes.cpu.status & FLAGS_6502_I ? "I" : " ",
-                nes.cpu.status & FLAGS_6502_Z ? "Z" : " ",
-                nes.cpu.status & FLAGS_6502_C ? "C" : " "
-            );
-            printf("PC: $%s\n", hex(nes.cpu.pc, 4));
-            printf("A: $%s\n", hex(nes.cpu.a, 2));
-            printf("X: $%s\n", hex(nes.cpu.x, 2));
-            printf("Y: $%s\n", hex(nes.cpu.y, 2));
-            printf("Stack Pointer: $%s\n", hex(nes.cpu.stkp, 4));
-
-            for (int i = 0; i < 26; i++)
-            {
-                char s[100] = "";
-                snprintf(s, 100, "%s : (%u, %u) ID: %s AT: %s\n",
-                    hex(i, 2),
-                    ((u8*)nes.ppu.oam)[i * 4 + 3],
-                    ((u8*)nes.ppu.oam)[i * 4],
-                    hex(((u8*)nes.ppu.oam)[i * 4 + 1], 2),
-                    hex(((u8*)nes.ppu.oam)[i * 4 + 2], 2)
-                );
-
-                printf("%s\n", s);
+        // TODO: Platform message boxes
+        if (keyboard.s) {
+            if (!cartridge_save_to_file(&cart, "save_file")) {
+                printf("File failed to open or game doesn't support saving.\n");
             }
         }
-         
-        */
 
         platform_render();
-
-        /* printf("FPS: %0.1f\n", fps);
-
-        frame_count++;
-
-        f64 current_time = platform_get_elapsed_time_ms();
-        if (current_time - fps_timer >= 1000.0) {
-            fps = (f64)frame_count * 1000.0 / (current_time - fps_timer);
-            fps_timer = current_time;
-            frame_count = 0;
-        }
-
-        */
-
-        // Throttle to ~60fps
-        f64 frame_end_time = platform_get_elapsed_time_ms();
-        f64 elapsed = frame_end_time - frame_start_time;
-        if (elapsed < target_frame_time_ms) {
-            // This sleep needs to be precise, could also just while loop for insanely precise, albeight using 100% cpu
-            platform_sleep_ms((u32)(target_frame_time_ms - elapsed));
-        }
     }
 
     platform_shutdown();
 
-    bus_destroy(&nes);
+    bus_destroy(&bus_global);
 
     return true;
 }
